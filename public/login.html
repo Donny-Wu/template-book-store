@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>登入 - BookHaven</title>
+    
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet">
+    
+    <!-- 引入現有的 CSS 文件 -->
+    <link rel="stylesheet" href="css/reset.css">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Figtree', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+        }
+
+        .login-subtitle {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group.focused .form-label {
+            color: #667eea;
+            transform: scale(0.95);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+            color: #333;
+            box-sizing: border-box;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .form-input:hover {
+            border-color: #667eea;
+        }
+
+        .form-input.error {
+            border-color: #ff6b6b;
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+        }
+
+        .checkbox {
+            width: 18px;
+            height: 18px;
+            margin-right: 0.75rem;
+            accent-color: #667eea;
+            cursor: pointer;
+        }
+
+        .checkbox-label {
+            color: #666;
+            font-size: 0.9rem;
+            user-select: none;
+            cursor: pointer;
+        }
+
+        .login-button {
+            width: 100%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .login-button:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .login-button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .login-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .login-button:hover::before {
+            left: 100%;
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .forgot-password a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        .message {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .message.show {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .error-message {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .success-message {
+            background: linear-gradient(45deg, #51cf66, #40c057);
+            color: white;
+            box-shadow: 0 5px 15px rgba(81, 207, 102, 0.3);
+        }
+
+        .error-list {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .form-footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+            color: #764ba2;
+        }
+
+        /* 浮動粒子背景效果 */
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-shape:nth-child(2) {
+            width: 60px;
+            height: 60px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .floating-shape:nth-child(3) {
+            width: 40px;
+            height: 40px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        /* 載入動畫 */
+        .loading-spinner {
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        /* 動畫定義 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+            }
+
+            .login-logo {
+                font-size: 2rem;
+            }
+
+            .login-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .form-input {
+                padding: 0.875rem 1rem;
+                font-size: 0.95rem;
+            }
+
+            .login-button {
+                padding: 0.875rem 1.5rem;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 浮動背景元素 -->
+    <div class="floating-shapes">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+    </div>
+
+    <div class="login-container">
+        <div class="login-card">
+            <!-- Logo 和標題 -->
+            <div class="login-header">
+                <h1 class="login-logo" onclick="window.location.href='index.html'">BookHaven</h1>
+                <p class="login-subtitle">歡迎回到您的閱讀天堂</p>
+            </div>
+
+            <!-- 錯誤訊息 -->
+            <div id="errorMessage" class="message error-message">
+                <ul id="errorList" class="error-list"></ul>
+            </div>
+
+            <!-- 成功訊息 -->
+            <div id="successMessage" class="message success-message"></div>
+
+            <!-- 登入表單 -->
+            <form id="loginForm">
+                <!-- Email 欄位 -->
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input id="email"
+                           class="form-input"
+                           type="email"
+                           name="email"
+                           required
+                           autofocus
+                           autocomplete="username"
+                           placeholder="請輸入您的電子郵件" />
+                </div>
+
+                <!-- Password 欄位 -->
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input id="password"
+                           class="form-input"
+                           type="password"
+                           name="password"
+                           required
+                           autocomplete="current-password"
+                           placeholder="請輸入您的密碼" />
+                </div>
+
+                <!-- Remember Me -->
+                <div class="checkbox-wrapper">
+                    <input type="checkbox"
+                           id="remember_me"
+                           name="remember"
+                           class="checkbox">
+                    <label for="remember_me" class="checkbox-label">
+                        記住我
+                    </label>
+                </div>
+
+                <!-- 登入按鈕 -->
+                <button type="submit" class="login-button" id="loginButton">
+                    登入
+                </button>
+
+                <div class="forgot-password">
+                    <a href="forgot-password.html">
+                        忘記密碼？
+                    </a>
+                </div>
+            </form>
+
+            <!-- 頁腳 -->
+            <div class="form-footer">
+                還沒有帳號？
+                <a href="register.html">立即註冊</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 模擬用戶資料庫
+        const mockUsers = [
+            {
+                email: 'admin@bookhaven.com',
+                password: 'admin123',
+                name: '管理員'
+            },
+            {
+                email: 'user@example.com',
+                password: 'password',
+                name: '測試用戶'
+            },
+            {
+                email: 'demo@test.com',
+                password: '123456',
+                name: 'Demo User'
+            }
+        ];
+
+        // DOM 元素
+        const loginForm = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const rememberCheckbox = document.getElementById('remember_me');
+        const loginButton = document.getElementById('loginButton');
+        const errorMessage = document.getElementById('errorMessage');
+        const errorList = document.getElementById('errorList');
+        const successMessage = document.getElementById('successMessage');
+
+        // 頁面載入時
+        document.addEventListener('DOMContentLoaded', function() {
+            // 為輸入欄位添加焦點效果
+            const inputs = document.querySelectorAll('.form-input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.classList.add('focused');
+                    hideMessages();
+                });
+
+                input.addEventListener('blur', function() {
+                    this.parentElement.classList.remove('focused');
+                });
+            });
+
+            // 檢查是否有記住的郵件
+            const rememberedEmail = localStorage.getItem('rememberedEmail');
+            if (rememberedEmail) {
+                emailInput.value = rememberedEmail;
+                rememberCheckbox.checked = true;
+            }
+
+            // 檢查 URL 參數中的狀態訊息
+            const urlParams = new URLSearchParams(window.location.search);
+            const status = urlParams.get('status');
+            if (status === 'registered') {
+                showSuccess('註冊成功！請使用您的帳號登入。');
+            } else if (status === 'password-reset') {
+                showSuccess('密碼已重設！請使用新密碼登入。');
+            }
+        });
+
+        // 表單提交處理
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            handleLogin();
+        });
+
+        // 處理登入
+        function handleLogin() {
+            // 隱藏之前的訊息
+            hideMessages();
+
+            // 獲取表單數據
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+            const remember = rememberCheckbox.checked;
+
+            // 驗證
+            const errors = [];
+            
+            if (!email) {
+                errors.push('請輸入電子郵件地址');
+            } else if (!isValidEmail(email)) {
+                errors.push('請輸入有效的電子郵件地址');
+            }
+
+            if (!password) {
+                errors.push('請輸入密碼');
+            } else if (password.length < 6) {
+                errors.push('密碼至少需要 6 個字元');
+            }
+
+            if (errors.length > 0) {
+                showErrors(errors);
+                return;
+            }
+
+            // 顯示載入狀態
+            setLoading(true);
+
+            // 模擬 API 請求延遲
+            setTimeout(() => {
+                // 驗證用戶
+                const user = mockUsers.find(u => 
+                    u.email.toLowerCase() === email.toLowerCase() && 
+                    u.password === password
+                );
+
+                if (user) {
+                    // 登入成功
+                    if (remember) {
+                        localStorage.setItem('rememberedEmail', email);
+                    } else {
+                        localStorage.removeItem('rememberedEmail');
+                    }
+
+                    // 儲存用戶資訊
+                    const userInfo = {
+                        email: user.email,
+                        name: user.name,
+                        loginTime: new Date().toISOString()
+                    };
+                    sessionStorage.setItem('currentUser', JSON.stringify(userInfo));
+
+                    // 顯示成功訊息
+                    showSuccess('登入成功！正在跳轉...');
+
+                    // 跳轉到首頁
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1000);
+                } else {
+                    // 登入失敗
+                    setLoading(false);
+                    showErrors(['電子郵件或密碼錯誤，請重試。']);
+                    passwordInput.value = '';
+                    passwordInput.focus();
+                }
+            }, 1000);
+        }
+
+        // 顯示錯誤訊息
+        function showErrors(errors) {
+            errorList.innerHTML = errors.map(error => `<li>${error}</li>`).join('');
+            errorMessage.classList.add('show');
+            
+            // 標記有錯誤的輸入框
+            if (errors.some(e => e.includes('電子郵件') || e.includes('email'))) {
+                emailInput.classList.add('error');
+            }
+            if (errors.some(e => e.includes('密碼') || e.includes('password'))) {
+                passwordInput.classList.add('error');
+            }
+        }
+
+        // 顯示成功訊息
+        function showSuccess(message) {
+            successMessage.textContent = message;
+            successMessage.classList.add('show');
+        }
+
+        // 隱藏所有訊息
+        function hideMessages() {
+            errorMessage.classList.remove('show');
+            successMessage.classList.remove('show');
+            emailInput.classList.remove('error');
+            passwordInput.classList.remove('error');
+        }
+
+        // 設定載入狀態
+        function setLoading(loading) {
+            if (loading) {
+                loginButton.innerHTML = '<span class="loading-spinner"></span>登入中...';
+                loginButton.disabled = true;
+            } else {
+                loginButton.innerHTML = '登入';
+                loginButton.disabled = false;
+            }
+        }
+
+        // 驗證電子郵件格式
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // Enter 鍵快捷登入
+        passwordInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                loginForm.dispatchEvent(new Event('submit'));
+            }
+        });
+    </script>
+</body>
+</html>
