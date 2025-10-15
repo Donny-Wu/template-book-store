@@ -135,22 +135,39 @@
                 </div>
                 <div id="searchResults" class="search-results"></div>
             </div>
-
-            <!-- 語系下拉選單 -->
-            <div class="language-filter-wrapper">
-                <label for="languageSelect" class="filter-label">
-                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
-                    </svg>
-                    語系
-                </label>
-                <select id="languageSelect" class="language-select">
-                    <option value="all">全部語系 (<span id="count-all-inline">0</span>)</option>
-                    <option value="zh-TW">繁體中文 (<span id="count-zh-TW-inline">0</span>)</option>
-                    <option value="zh-CN">簡體中文 (<span id="count-zh-CN-inline">0</span>)</option>
-                    <option value="en">English (<span id="count-en-inline">0</span>)</option>
-                    <option value="ja">日本語 (<span id="count-ja-inline">0</span>)</option>
-                </select>
+            <!-- 篩選器組 -->
+            <div class="filters-group">
+                <!-- 語系下拉選單 -->
+                <div class="language-filter-wrapper">
+                    <label for="languageSelect" class="filter-label">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+                        </svg>
+                        語系
+                    </label>
+                    <select id="languageSelect" class="language-select">
+                        <option value="all">全部語系 (<span id="count-all-inline">0</span>)</option>
+                        <option value="zh-TW">繁體中文 (<span id="count-zh-TW-inline">0</span>)</option>
+                        <option value="zh-CN">簡體中文 (<span id="count-zh-CN-inline">0</span>)</option>
+                        <option value="en">English (<span id="count-en-inline">0</span>)</option>
+                        <option value="ja">日本語 (<span id="count-ja-inline">0</span>)</option>
+                    </select>
+                </div>
+                <!-- 出版形式下拉選單 -->
+                <div class="format-filter-wrapper">
+                    <label for="formatSelect" class="filter-label">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                        <span class="filter-label-text">出版形式</span>
+                    </label>
+                    <select id="formatSelect" class="format-select">
+                        <option value="all">全部形式 (0)</option>
+                        <option value="physical">紙本書 (0)</option>
+                        <option value="ebook">電子書 (0)</option>
+                        <option value="audiobook">有聲書 (0)</option>
+                    </select>
+                </div>
             </div>
         </div>
 
