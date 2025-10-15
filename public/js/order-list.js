@@ -1,0 +1,546 @@
+/**
+ * BookHaven Order List
+ */
+
+// 模擬訂單數據
+const ordersData = [
+    {
+        id: 1,
+        order_number: 'ORD-2025-001',
+        order_date: '2025-10-15 10:30',
+        recipient_name: '王小明',
+        recipient_phone: '0912-345-678',
+        product_title: '深度學習入門',
+        product_image: 'https://images.unsplash.com/photo-1589998059171-988d887df646?w=400&h=600&fit=crop',
+        product_count: 2,
+        total_price: 1200,
+        final_price: 1200,
+        status: 'pending',
+        payment_status: 'unpaid'
+    },
+    {
+        id: 2,
+        order_number: 'ORD-2025-002',
+        order_date: '2025-10-15 11:45',
+        recipient_name: '李小華',
+        recipient_phone: '0923-456-789',
+        product_title: 'JavaScript 權威指南',
+        product_image: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?w=400&h=600&fit=crop',
+        product_count: 1,
+        total_price: 720,
+        final_price: 720,
+        status: 'confirmed',
+        payment_status: 'paid'
+    },
+    {
+        id: 3,
+        order_number: 'ORD-2025-003',
+        order_date: '2025-10-14 14:20',
+        recipient_name: '張大偉',
+        recipient_phone: '0934-567-890',
+        product_title: 'Python 自動化',
+        product_image: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=400&h=600&fit=crop',
+        product_count: 3,
+        total_price: 1800,
+        final_price: 1650,
+        status: 'shipped',
+        payment_status: 'paid'
+    },
+    // 可以添加更多訂單數據...
+];
+
+// 分頁相關變數
+let currentPage = 1;
+let itemsPerPage = 10;
+let totalPages = 1;
+let currentFilteredOrders = [];
+
+// 狀態標籤對應
+const statusLabels = {
+    pending: '待確認',
+    confirmed: '已確認',
+    shipped: '已出貨',
+    finished: '已完成',
+    cancelled: '已取消'
+};
+
+const paymentLabels = {
+    unpaid: '未付款',
+    paid: '已付款',
+    refunded: '已退款'
+};
+
+/**
+ * 初始化
+ */
+function init() {
+    // 初始化當前篩選訂單列表
+    currentFilteredOrders = [...ordersData];
+    
+    // 渲染訂單列表
+    renderOrders();
+    
+    // 初始化篩選
+    initFilters();
+    
+    // 初始化選擇框
+    initCheckboxes();
+    
+    // 初始化分頁
+    initPagination();
+    
+    // 初始化用戶選單
+    initUserMenu();
+    
+    // 更新統計數據
+    updateStatistics();
+}
+
+/**
+ * 渲染訂單列表
+ */
+function renderOrders(filteredData = null) {
+    const tableBody = document.getElementById('ordersTableBody');
+    const emptyState = document.getElementById('emptyState');
+    
+    if (!tableBody) return;
+    
+    // 使用篩選後的數據或所有數據
+    const dataToRender = filteredData !== null ? filteredData : ordersData;
+    
+    // 更新當前篩選訂單列表
+    currentFilteredOrders = dataToRender;
+    
+    // 計算總頁數
+    totalPages = Math.ceil(dataToRender.length / itemsPerPage);
+    
+    // 確保當前頁碼在有效範圍內
+    if (currentPage > totalPages) {
+        currentPage = Math.max(1, totalPages);
+    }
+    
+    // 計算當前頁的資料範圍
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, dataToRender.length);
+    const currentPageData = dataToRender.slice(startIndex, endIndex);
+    
+    if (dataToRender.length === 0) {
+        tableBody.innerHTML = '';
+        emptyState.style.display = 'block';
+        updatePagination();
+        return;
+    }
+    
+    emptyState.style.display = 'none';
+    // ${order.product_image}
+    tableBody.innerHTML = currentPageData.map(order => `
+        <tr>
+            <td>
+                <input type="checkbox" class="order-checkbox table-checkbox" value="${order.id}">
+            </td>
+            <td>
+                <div class="order-number">${order.order_number}</div>
+                <div class="order-date">${order.order_date}</div>
+            </td>
+            <td>
+                <div class="recipient-name">${order.recipient_name}</div>
+                <div class="recipient-phone">${order.recipient_phone}</div>
+            </td>
+            <td>
+                <div class="order-product-info">
+                    <img src="${order.product_image}" alt="${order.product_title}" class="order-product-image">
+                    <div>
+                        <div class="order-product-title">${order.product_title}</div>
+                        ${order.product_count > 1 ? `<div class="order-product-extra">+${order.product_count - 1} 本其他書籍</div>` : ''}
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="order-amount">NT$ ${order.final_price.toLocaleString()}</div>
+                <div class="order-subtotal">商品: NT$ ${order.total_price.toLocaleString()}</div>
+            </td>
+            <td>
+                <div class="status-badges">
+                    <span class="status-badge ${order.status}">${statusLabels[order.status]}</span>
+                    <span class="status-badge ${order.payment_status}">${paymentLabels[order.payment_status]}</span>
+                </div>
+            </td>
+            <td>
+                <div class="table-actions">
+                    <a href="#view-${order.id}" class="action-link">查看</a>
+                    ${order.status !== 'finished' && order.status !== 'cancelled' ? 
+                        `<a href="javascript:void(0)" onclick="showStatusModal(${order.id}, '${order.status}')" class="action-link update">更新</a>` : 
+                        ''}
+                </div>
+            </td>
+        </tr>
+    `).join('');
+    
+    // 重新初始化選擇框事件
+    initCheckboxEvents();
+    
+    // 更新分頁導航
+    updatePagination();
+}
+
+/**
+ * 初始化篩選
+ */
+function initFilters() {
+    const filterForm = document.getElementById('filterForm');
+    
+    if (!filterForm) return;
+    
+    filterForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        applyFilters();
+    });
+}
+
+/**
+ * 應用篩選
+ */
+function applyFilters() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+    const statusFilter = document.getElementById('statusFilter').value;
+    const paymentFilter = document.getElementById('paymentFilter').value;
+    const dateFrom = document.getElementById('dateFrom').value;
+    const dateTo = document.getElementById('dateTo').value;
+    
+    let filteredOrders = [...ordersData];
+    
+    // 搜尋篩選
+    if (searchTerm) {
+        filteredOrders = filteredOrders.filter(order => 
+            order.order_number.toLowerCase().includes(searchTerm) ||
+            order.recipient_name.toLowerCase().includes(searchTerm) ||
+            order.recipient_phone.includes(searchTerm)
+        );
+    }
+    
+    // 訂單狀態篩選
+    if (statusFilter) {
+        filteredOrders = filteredOrders.filter(order => order.status === statusFilter);
+    }
+    
+    // 付款狀態篩選
+    if (paymentFilter) {
+        filteredOrders = filteredOrders.filter(order => order.payment_status === paymentFilter);
+    }
+    
+    // 日期篩選
+    if (dateFrom) {
+        filteredOrders = filteredOrders.filter(order => order.order_date >= dateFrom);
+    }
+    
+    if (dateTo) {
+        filteredOrders = filteredOrders.filter(order => order.order_date <= dateTo);
+    }
+    
+    // 重置到第一頁
+    currentPage = 1;
+    
+    // 重新渲染
+    renderOrders(filteredOrders);
+    
+    console.log(`找到 ${filteredOrders.length} 筆訂單`);
+}
+
+/**
+ * 重置篩選
+ */
+window.resetFilters = function() {
+    document.getElementById('filterForm').reset();
+    currentPage = 1;
+    renderOrders(ordersData);
+};
+
+/**
+ * 初始化選擇框
+ */
+function initCheckboxes() {
+    const selectAll = document.getElementById('selectAll');
+    
+    if (!selectAll) return;
+    
+    selectAll.addEventListener('change', function() {
+        const checkboxes = document.querySelectorAll('.order-checkbox');
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = this.checked;
+        });
+        updateSelectedCount();
+    });
+}
+
+/**
+ * 初始化選擇框事件
+ */
+function initCheckboxEvents() {
+    document.querySelectorAll('.order-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', updateSelectedCount);
+    });
+}
+
+/**
+ * 更新選中數量
+ */
+function updateSelectedCount() {
+    const checked = document.querySelectorAll('.order-checkbox:checked').length;
+    document.getElementById('selectedCount').textContent = `已選擇 ${checked} 筆`;
+}
+
+/**
+ * 批量操作
+ */
+window.batchAction = function(action) {
+    const selectedIds = Array.from(document.querySelectorAll('.order-checkbox:checked'))
+        .map(checkbox => checkbox.value);
+
+    if (selectedIds.length === 0) {
+        alert('請選擇要操作的訂單');
+        return;
+    }
+
+    const actionNames = {
+        'confirm': '確認',
+        'ship': '出貨',
+        'finish': '完成',
+        'cancel': '取消'
+    };
+
+    if (confirm(`確定要${actionNames[action]}選中的 ${selectedIds.length} 筆訂單嗎？`)) {
+        console.log(`批量${actionNames[action]}訂單:`, selectedIds);
+        alert(`已${actionNames[action]} ${selectedIds.length} 筆訂單`);
+        
+        // 取消所有選擇
+        document.querySelectorAll('.order-checkbox').forEach(cb => cb.checked = false);
+        document.getElementById('selectAll').checked = false;
+        updateSelectedCount();
+    }
+};
+
+/**
+ * 顯示狀態更新 Modal
+ */
+window.showStatusModal = function(orderId, currentStatus) {
+    document.getElementById('orderId').value = orderId;
+    document.getElementById('orderStatus').value = currentStatus;
+    document.getElementById('adminNote').value = '';
+    document.getElementById('statusModal').classList.add('active');
+};
+
+/**
+ * 隱藏狀態更新 Modal
+ */
+window.hideStatusModal = function() {
+    document.getElementById('statusModal').classList.remove('active');
+};
+
+/**
+ * 初始化狀態表單
+ */
+document.getElementById('statusForm')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const orderId = document.getElementById('orderId').value;
+    const status = document.getElementById('orderStatus').value;
+    const note = document.getElementById('adminNote').value;
+    
+    console.log('更新訂單狀態:', { orderId, status, note });
+    
+    alert('訂單狀態已更新！');
+    hideStatusModal();
+    
+    // 重新渲染列表
+    renderOrders(currentFilteredOrders);
+});
+
+/**
+ * 初始化分頁
+ */
+function initPagination() {
+    const prevBtn = document.getElementById('prevPageBtn');
+    const nextBtn = document.getElementById('nextPageBtn');
+    
+    if (!prevBtn || !nextBtn) return;
+    
+    prevBtn.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderOrders(currentFilteredOrders);
+            scrollToTop();
+        }
+    });
+    
+    nextBtn.addEventListener('click', () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            renderOrders(currentFilteredOrders);
+            scrollToTop();
+        }
+    });
+}
+
+/**
+ * 更新分頁導航
+ */
+function updatePagination() {
+    const paginationContainer = document.getElementById('paginationContainer');
+    const paginationNumbers = document.getElementById('paginationNumbers');
+    const prevBtn = document.getElementById('prevPageBtn');
+    const nextBtn = document.getElementById('nextPageBtn');
+    const currentStart = document.getElementById('currentStart');
+    const currentEnd = document.getElementById('currentEnd');
+    const totalItems = document.getElementById('totalItems');
+    
+    if (!paginationContainer) return;
+    
+    // 如果沒有資料或只有一頁，隱藏分頁
+    if (currentFilteredOrders.length === 0 || totalPages <= 1) {
+        paginationContainer.classList.add('hidden');
+        return;
+    }
+    
+    paginationContainer.classList.remove('hidden');
+    
+    // 更新上一頁/下一頁按鈕狀態
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages;
+    
+    // 更新資訊
+    const startIndex = (currentPage - 1) * itemsPerPage + 1;
+    const endIndex = Math.min(currentPage * itemsPerPage, currentFilteredOrders.length);
+    
+    currentStart.textContent = startIndex;
+    currentEnd.textContent = endIndex;
+    totalItems.textContent = currentFilteredOrders.length;
+    
+    // 生成頁碼按鈕
+    paginationNumbers.innerHTML = '';
+    
+    const pageNumbers = generatePageNumbers(currentPage, totalPages);
+    
+    pageNumbers.forEach(pageNum => {
+        if (pageNum === '...') {
+            const ellipsis = document.createElement('span');
+            ellipsis.className = 'pagination-ellipsis';
+            ellipsis.textContent = '...';
+            paginationNumbers.appendChild(ellipsis);
+        } else {
+            const pageBtn = document.createElement('button');
+            pageBtn.className = 'pagination-number';
+            if (pageNum === currentPage) {
+                pageBtn.classList.add('active');
+            }
+            pageBtn.textContent = pageNum;
+            pageBtn.addEventListener('click', () => {
+                currentPage = pageNum;
+                renderOrders(currentFilteredOrders);
+                scrollToTop();
+            });
+            paginationNumbers.appendChild(pageBtn);
+        }
+    });
+}
+
+/**
+ * 生成頁碼數組
+ */
+function generatePageNumbers(current, total) {
+    const pages = [];
+    
+    if (total <= 7) {
+        for (let i = 1; i <= total; i++) {
+            pages.push(i);
+        }
+    } else {
+        pages.push(1);
+        
+        if (current > 3) {
+            pages.push('...');
+        }
+        
+        const start = Math.max(2, current - 1);
+        const end = Math.min(total - 1, current + 1);
+        
+        for (let i = start; i <= end; i++) {
+            pages.push(i);
+        }
+        
+        if (current < total - 2) {
+            pages.push('...');
+        }
+        
+        pages.push(total);
+    }
+    
+    return pages;
+}
+
+/**
+ * 滾動到頂部
+ */
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+/**
+ * 初始化用戶選單
+ */
+function initUserMenu() {
+    const userMenuBtn = document.getElementById('userMenuBtn');
+    const userDropdown = document.getElementById('userDropdown');
+    const userMenu = document.querySelector('.user-menu');
+    
+    if (!userMenuBtn || !userDropdown) return;
+    
+    userMenuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        userMenu.classList.toggle('active');
+        userDropdown.classList.toggle('active');
+    });
+    
+    document.addEventListener('click', () => {
+        userMenu.classList.remove('active');
+        userDropdown.classList.remove('active');
+    });
+}
+
+/**
+ * 更新統計數據
+ */
+function updateStatistics() {
+    const stats = {
+        total: ordersData.length,
+        pending: ordersData.filter(o => o.status === 'pending').length,
+        confirmed: ordersData.filter(o => o.status === 'confirmed').length,
+        shipped: ordersData.filter(o => o.status === 'shipped').length,
+        finished: ordersData.filter(o => o.status === 'finished').length,
+        cancelled: ordersData.filter(o => o.status === 'cancelled').length
+    };
+    
+    document.getElementById('totalOrders').textContent = stats.total;
+    document.getElementById('pendingOrders').textContent = stats.pending;
+    document.getElementById('confirmedOrders').textContent = stats.confirmed;
+    document.getElementById('shippedOrders').textContent = stats.shipped;
+    document.getElementById('finishedOrders').textContent = stats.finished;
+    document.getElementById('cancelledOrders').textContent = stats.cancelled;
+}
+
+// 點擊 Modal 背景關閉
+document.getElementById('statusModal')?.addEventListener('click', function(e) {
+    if (e.target === this) {
+        hideStatusModal();
+    }
+});
+
+/**
+ * 頁面載入完成後初始化
+ */
+document.addEventListener('DOMContentLoaded', init);
+
+// 導出給其他模塊使用
+export { renderOrders };
