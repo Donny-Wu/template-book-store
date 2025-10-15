@@ -46,7 +46,314 @@ const ordersData = [
         status: 'shipped',
         payment_status: 'paid'
     },
-    // 可以添加更多訂單數據...
+    {
+        id: 4,
+        order_number: 'ORD-2025-004',
+        order_date: '2025-10-14 09:15',
+        recipient_name: '陳美玲',
+        recipient_phone: '0945-678-901',
+        product_title: 'React 實戰開發',
+        product_image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=600&fit=crop',
+        product_count: 1,
+        total_price: 680,
+        final_price: 680,
+        status: 'finished',
+        payment_status: 'paid'
+    },
+    {
+        id: 5,
+        order_number: 'ORD-2025-005',
+        order_date: '2025-10-13 16:40',
+        recipient_name: '林志明',
+        recipient_phone: '0956-789-012',
+        product_title: 'Vue.js 從零開始',
+        product_image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&h=600&fit=crop',
+        product_count: 2,
+        total_price: 1400,
+        final_price: 1400,
+        status: 'finished',
+        payment_status: 'paid'
+    },
+    {
+        id: 6,
+        order_number: 'ORD-2025-006',
+        order_date: '2025-10-13 13:25',
+        recipient_name: '黃淑芬',
+        recipient_phone: '0967-890-123',
+        product_title: 'Node.js 開發實戰',
+        product_image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=600&fit=crop',
+        product_count: 1,
+        total_price: 750,
+        final_price: 750,
+        status: 'finished',
+        payment_status: 'paid'
+    },
+    {
+        id: 7,
+        order_number: 'ORD-2025-007',
+        order_date: '2025-10-12 10:10',
+        recipient_name: '吳建宏',
+        recipient_phone: '0978-901-234',
+        product_title: 'Docker 容器技術',
+        product_image: 'https://images.unsplash.com/photo-1618477247222-acbdb0e159b3?w=400&h=600&fit=crop',
+        product_count: 1,
+        total_price: 820,
+        final_price: 820,
+        status: 'cancelled',
+        payment_status: 'refunded'
+    },
+    {
+        id: 8,
+        order_number: 'ORD-2025-008',
+        order_date: '2025-10-12 08:30',
+        recipient_name: '鄭雅婷',
+        recipient_phone: '0989-012-345',
+        product_title: 'Kubernetes 入門',
+        product_image: 'https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=400&h=600&fit=crop',
+        product_count: 2,
+        total_price: 1600,
+        final_price: 1600,
+        status: 'pending',
+        payment_status: 'unpaid'
+    },
+    {
+        id: 9,
+        order_number: 'ORD-2025-009',
+        order_date: '2025-10-11 15:20',
+        recipient_name: '劉冠宇',
+        recipient_phone: '0910-123-456',
+        product_title: 'MySQL 資料庫設計',
+        product_image: 'https://images.unsplash.com/photo-1544377193-33dcf4d68fb5?w=400&h=600&fit=crop',
+        product_count: 1,
+        total_price: 690,
+        final_price: 690,
+        status: 'confirmed',
+        payment_status: 'paid'
+    },
+    {
+        id: 10,
+        order_number: 'ORD-2025-010',
+        order_date: '2025-10-11 11:50',
+        recipient_name: '許雅雯',
+        recipient_phone: '0921-234-567',
+        product_title: 'MongoDB 實戰指南',
+        product_image: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?w=400&h=600&fit=crop',
+        product_count: 1,
+        total_price: 720,
+        final_price: 720,
+        status: 'shipped',
+        payment_status: 'paid'
+    },
+    {
+        id: 11,
+        order_number: 'ORD-2025-011',
+        order_date: '2025-10-10 14:35',
+        recipient_name: '周柏翰',
+        recipient_phone: '0932-345-678',
+        product_title: 'Git 版本控制',
+        product_image: 'https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=400&h=600&fit=crop',
+        product_count: 3,
+        total_price: 1500,
+        final_price: 1350,
+        status: 'finished',
+        payment_status: 'paid'
+    },
+    {
+        id: 12,
+        order_number: 'ORD-2025-012',
+        order_date: '2025-10-10 09:45',
+        recipient_name: '蔡佩君',
+        recipient_phone: '0943-456-789',
+        product_title: 'TypeScript 完全指南',
+        product_image: 'https://images.unsplash.com/photo-1589998059171-988d887df646?w=400&h=600&fit=crop',
+        product_count: 1,
+        total_price: 780,
+        final_price: 780,
+        status: 'confirmed',
+        payment_status: 'paid'
+    },
+    {
+        id: 13,
+        order_number: 'ORD-2025-013',
+        order_date: '2025-10-09 16:20',
+        recipient_name: '謝明宏',
+        recipient_phone: '0954-567-890',
+        product_title: 'HTML5 與 CSS3',
+        product_image: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=400&h=600&fit=crop',
+        product_count: 2,
+        total_price: 1100,
+        final_price: 1100,
+        status: 'pending',
+        payment_status: 'unpaid'
+    },
+    {
+        id: 14,
+        order_number: 'ORD-2025-014',
+        order_date: '2025-10-09 10:15',
+        recipient_name: '林詩涵',
+        recipient_phone: '0965-678-901',
+        product_title: 'Angular 開發實戰',
+        product_image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&h=600&fit=crop',
+        product_count: 1,
+        total_price: 850,
+        final_price: 850,
+        status: 'shipped',
+        payment_status: 'paid'
+    },
+    {
+        id: 15,
+        order_number: 'ORD-2025-015',
+        order_date: '2025-10-08 13:40',
+        recipient_name: '楊子萱',
+        recipient_phone: '0976-789-012',
+        product_title: 'Laravel 框架實戰',
+        product_image: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?w=400&h=600&fit=crop',
+        product_count: 1,
+        total_price: 920,
+        final_price: 920,
+        status: 'finished',
+        payment_status: 'paid'
+    },
+    {
+        id: 16,
+        order_number: 'ORD-2025-016',
+        order_date: '2025-10-08 08:25',
+        recipient_name: '陳俊傑',
+        recipient_phone: '0987-890-123',
+        product_title: 'Spring Boot 微服務',
+        product_image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=600&fit=crop',
+        product_count: 2,
+        total_price: 1800,
+        final_price: 1800,
+        status: 'confirmed',
+        payment_status: 'paid'
+    },
+    {
+        id: 17,
+        order_number: 'ORD-2025-017',
+        order_date: '2025-10-07 15:50',
+        recipient_name: '江佳蓉',
+        recipient_phone: '0998-901-234',
+        product_title: 'Django 網站開發',
+        product_image: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=400&h=600&fit=crop',
+        product_count: 1,
+        total_price: 880,
+        final_price: 880,
+        status: 'finished',
+        payment_status: 'paid'
+    },
+    {
+        id: 18,
+        order_number: 'ORD-2025-018',
+        order_date: '2025-10-07 11:30',
+        recipient_name: '羅志成',
+        recipient_phone: '0912-012-345',
+        product_title: 'Redis 快取實戰',
+        product_image: 'https://images.unsplash.com/photo-1544377193-33dcf4d68fb5?w=400&h=600&fit=crop',
+        product_count: 1,
+        total_price: 750,
+        final_price: 750,
+        status: 'pending',
+        payment_status: 'unpaid'
+    },
+    {
+        id: 19,
+        order_number: 'ORD-2025-019',
+        order_date: '2025-10-06 14:15',
+        recipient_name: '潘怡君',
+        recipient_phone: '0923-123-456',
+        product_title: 'GraphQL 完全指南',
+        product_image: 'https://images.unsplash.com/photo-1589998059171-988d887df646?w=400&h=600&fit=crop',
+        product_count: 1,
+        total_price: 820,
+        final_price: 820,
+        status: 'shipped',
+        payment_status: 'paid'
+    },
+    {
+        id: 20,
+        order_number: 'ORD-2025-020',
+        order_date: '2025-10-06 09:40',
+        recipient_name: '賴宗翰',
+        recipient_phone: '0934-234-567',
+        product_title: 'Flutter 跨平台開發',
+        product_image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=600&fit=crop',
+        product_count: 2,
+        total_price: 1400,
+        final_price: 1260,
+        status: 'confirmed',
+        payment_status: 'paid'
+    },
+    {
+        id: 21,
+        order_number: 'ORD-2025-021',
+        order_date: '2025-10-05 16:05',
+        recipient_name: '洪雅文',
+        recipient_phone: '0945-345-678',
+        product_title: 'Swift iOS 開發',
+        product_image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&h=600&fit=crop',
+        product_count: 1,
+        total_price: 950,
+        final_price: 950,
+        status: 'finished',
+        payment_status: 'paid'
+    },
+    {
+        id: 22,
+        order_number: 'ORD-2025-022',
+        order_date: '2025-10-05 10:30',
+        recipient_name: '簡志豪',
+        recipient_phone: '0956-456-789',
+        product_title: 'Kotlin Android 開發',
+        product_image: 'https://images.unsplash.com/photo-1618477247222-acbdb0e159b3?w=400&h=600&fit=crop',
+        product_count: 1,
+        total_price: 880,
+        final_price: 880,
+        status: 'finished',
+        payment_status: 'paid'
+    },
+    {
+        id: 23,
+        order_number: 'ORD-2025-023',
+        order_date: '2025-10-04 13:20',
+        recipient_name: '袁靜怡',
+        recipient_phone: '0967-567-890',
+        product_title: 'TensorFlow 機器學習',
+        product_image: 'https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=400&h=600&fit=crop',
+        product_count: 2,
+        total_price: 1600,
+        final_price: 1600,
+        status: 'pending',
+        payment_status: 'unpaid'
+    },
+    {
+        id: 24,
+        order_number: 'ORD-2025-024',
+        order_date: '2025-10-04 08:45',
+        recipient_name: '蔣宏達',
+        recipient_phone: '0978-678-901',
+        product_title: 'PyTorch 深度學習',
+        product_image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=600&fit=crop',
+        product_count: 1,
+        total_price: 920,
+        final_price: 920,
+        status: 'confirmed',
+        payment_status: 'paid'
+    },
+    {
+        id: 25,
+        order_number: 'ORD-2025-025',
+        order_date: '2025-10-03 15:10',
+        recipient_name: '孫美惠',
+        recipient_phone: '0989-789-012',
+        product_title: 'Elasticsearch 搜尋引擎',
+        product_image: 'https://images.unsplash.com/photo-1544377193-33dcf4d68fb5?w=400&h=600&fit=crop',
+        product_count: 1,
+        total_price: 850,
+        final_price: 850,
+        status: 'shipped',
+        payment_status: 'paid'
+    }
 ];
 
 // 分頁相關變數
@@ -96,93 +403,6 @@ function init() {
     updateStatistics();
 }
 
-/**
- * 渲染訂單列表
- 
-function renderOrders(filteredData = null) {
-    const tableBody = document.getElementById('ordersTableBody');
-    const emptyState = document.getElementById('emptyState');
-    
-    if (!tableBody) return;
-    
-    // 使用篩選後的數據或所有數據
-    const dataToRender = filteredData !== null ? filteredData : ordersData;
-    
-    // 更新當前篩選訂單列表
-    currentFilteredOrders = dataToRender;
-    
-    // 計算總頁數
-    totalPages = Math.ceil(dataToRender.length / itemsPerPage);
-    
-    // 確保當前頁碼在有效範圍內
-    if (currentPage > totalPages) {
-        currentPage = Math.max(1, totalPages);
-    }
-    
-    // 計算當前頁的資料範圍
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = Math.min(startIndex + itemsPerPage, dataToRender.length);
-    const currentPageData = dataToRender.slice(startIndex, endIndex);
-    
-    if (dataToRender.length === 0) {
-        tableBody.innerHTML = '';
-        emptyState.style.display = 'block';
-        updatePagination();
-        return;
-    }
-    
-    emptyState.style.display = 'none';
-    // ${order.product_image}
-    tableBody.innerHTML = currentPageData.map(order => `
-        <tr>
-            <td>
-                <input type="checkbox" class="order-checkbox table-checkbox" value="${order.id}">
-            </td>
-            <td>
-                <div class="order-number">${order.order_number}</div>
-                <div class="order-date">${order.order_date}</div>
-            </td>
-            <td>
-                <div class="recipient-name">${order.recipient_name}</div>
-                <div class="recipient-phone">${order.recipient_phone}</div>
-            </td>
-            <td>
-                <div class="order-product-info">
-                    <img src="${order.product_image}" alt="${order.product_title}" class="order-product-image">
-                    <div>
-                        <div class="order-product-title">${order.product_title}</div>
-                        ${order.product_count > 1 ? `<div class="order-product-extra">+${order.product_count - 1} 本其他書籍</div>` : ''}
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="order-amount">NT$ ${order.final_price.toLocaleString()}</div>
-                <div class="order-subtotal">商品: NT$ ${order.total_price.toLocaleString()}</div>
-            </td>
-            <td>
-                <div class="status-badges">
-                    <span class="status-badge ${order.status}">${statusLabels[order.status]}</span>
-                    <span class="status-badge ${order.payment_status}">${paymentLabels[order.payment_status]}</span>
-                </div>
-            </td>
-            <td>
-                <div class="table-actions">
-                    <a href="#view-${order.id}" class="action-link">查看</a>
-                    ${order.status !== 'finished' && order.status !== 'cancelled' ? 
-                        `<a href="javascript:void(0)" onclick="showStatusModal(${order.id}, '${order.status}')" class="action-link update">更新</a>` : 
-                        ''}
-                </div>
-            </td>
-        </tr>
-    `).join('');
-    
-    // 重新初始化選擇框事件
-    initCheckboxEvents();
-    
-    // 更新分頁導航
-    updatePagination();
-}
-*/
 /**
  * 渲染訂單列表（使用模板）
  */
