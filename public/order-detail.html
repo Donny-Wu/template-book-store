@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="BookHaven - 訂單詳情">
+    <title>訂單詳情 - BookHaven Dashboard</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/order-detail.css">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="dashboard-header">
+        <nav class="dashboard-nav">
+            <div class="nav-brand">
+                <a href="index.html" class="logo">BookHaven</a>
+                <span class="dashboard-label">管理後台</span>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="dashboard.html">儀表板</a></li>
+                <li><a href="dashboard.html#books">書籍管理</a></li>
+                <li><a href="order-list.html" class="active">訂單管理</a></li>
+                <li><a href="#users">用戶管理</a></li>
+                <li><a href="#settings">系統設定</a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <button class="notification-btn">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                    </svg>
+                    <span class="notification-badge">3</span>
+                </button>
+                
+                <div class="user-menu">
+                    <button class="user-btn" id="userMenuBtn">
+                        <div class="user-avatar">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                        </div>
+                        <span class="user-name">管理員</span>
+                        <svg class="dropdown-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="#profile">個人資料</a>
+                        <a href="#settings">帳號設定</a>
+                        <hr>
+                        <a href="index.html">返回前台</a>
+                        <a href="#logout" class="logout">登出</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="dashboard-container">
+        <div class="dashboard-content">
+            <!-- Page Header -->
+            <div class="detail-header">
+                <div class="detail-header-left">
+                    <h1 class="detail-title">訂單詳情</h1>
+                    <p class="detail-subtitle">訂單編號：<span id="orderNumber">ORD-2025-001</span></p>
+                </div>
+                <a href="order-list.html" class="btn btn-back">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    返回列表
+                </a>
+            </div>
+
+            <!-- Main Content Grid -->
+            <div class="detail-grid">
+                <!-- Left Column -->
+                <div class="detail-left">
+                    <!-- 訂單基本資訊 -->
+                    <div class="detail-card">
+                        <div class="card-header">
+                            <h2 class="card-title">訂單資訊</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="info-grid">
+                                <div class="info-section">
+                                    <h3 class="section-title">基本資訊</h3>
+                                    <dl class="info-list">
+                                        <div class="info-item">
+                                            <dt>訂單編號：</dt>
+                                            <dd id="detailOrderNumber">ORD-2025-001</dd>
+                                        </div>
+                                        <div class="info-item">
+                                            <dt>訂單日期：</dt>
+                                            <dd id="orderDate">2025-10-15 10:30:00</dd>
+                                        </div>
+                                        <div class="info-item">
+                                            <dt>訂單狀態：</dt>
+                                            <dd>
+                                                <span class="status-badge pending" id="orderStatus">待確認</span>
+                                            </dd>
+                                        </div>
+                                        <div class="info-item">
+                                            <dt>付款狀態：</dt>
+                                            <dd>
+                                                <span class="status-badge unpaid" id="paymentStatus">未付款</span>
+                                            </dd>
+                                        </div>
+                                    </dl>
+                                </div>
+
+                                <div class="info-section">
+                                    <h3 class="section-title">金額明細</h3>
+                                    <dl class="info-list">
+                                        <div class="info-item">
+                                            <dt>商品總計：</dt>
+                                            <dd>NT$ <span id="totalPrice">1,200</span></dd>
+                                        </div>
+                                        <div class="info-item">
+                                            <dt>折扣金額：</dt>
+                                            <dd>NT$ <span id="discountPrice">0</span></dd>
+                                        </div>
+                                        <div class="info-item">
+                                            <dt>運費：</dt>
+                                            <dd>NT$ <span id="shippingFee">0</span></dd>
+                                        </div>
+                                        <div class="info-item total">
+                                            <dt>最終金額：</dt>
+                                            <dd>NT$ <span id="finalPrice">1,200</span></dd>
+                                        </div>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 收件人資訊 -->
+                    <div class="detail-card">
+                        <div class="card-header">
+                            <h2 class="card-title">收件人資訊</h2>
+                        </div>
+                        <div class="card-body">
+                            <dl class="recipient-grid">
+                                <div class="recipient-item">
+                                    <dt>收件人姓名</dt>
+                                    <dd id="recipientName">王小明</dd>
+                                </div>
+                                <div class="recipient-item">
+                                    <dt>聯絡電話</dt>
+                                    <dd id="recipientPhone">0912-345-678</dd>
+                                </div>
+                                <div class="recipient-item full-width">
+                                    <dt>配送地址</dt>
+                                    <dd id="shippingAddress">台北市信義區信義路五段7號</dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <!-- 訂單商品 -->
+                    <div class="detail-card">
+                        <div class="card-header">
+                            <h2 class="card-title">訂單商品</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="products-list" id="productsList">
+                                <!-- 商品項目將由 JavaScript 動態生成 -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 備註資訊 -->
+                    <div class="detail-card" id="notesCard">
+                        <div class="card-header">
+                            <h2 class="card-title">備註資訊</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="notes-section">
+                                <div class="note-item consumer-note">
+                                    <h3>消費者備註</h3>
+                                    <p id="consumerNote">請在下午3點後送達，謝謝！</p>
+                                </div>
+                                <div class="note-item admin-note">
+                                    <h3>管理員備註</h3>
+                                    <p id="adminNoteDisplay">已通知配送人員</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="detail-right">
+                    <!-- 快速操作 -->
+                    <div class="detail-card">
+                        <div class="card-header">
+                            <h2 class="card-title">快速操作</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="quick-actions-list" id="quickActions">
+                                <!-- 快速操作按鈕將由 JavaScript 動態生成 -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 狀態歷程 -->
+                    <div class="detail-card">
+                        <div class="card-header">
+                            <h2 class="card-title">狀態歷程</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="timeline" id="statusTimeline">
+                                <!-- 狀態歷程將由 JavaScript 動態生成 -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 管理員備註編輯 -->
+                    <div class="detail-card">
+                        <div class="card-header">
+                            <h2 class="card-title">管理員備註</h2>
+                        </div>
+                        <div class="card-body">
+                            <form id="adminNoteForm">
+                                <textarea 
+                                    id="adminNoteInput" 
+                                    class="note-textarea" 
+                                    rows="4" 
+                                    placeholder="輸入管理員備註..."></textarea>
+                                <button type="submit" class="btn btn-primary btn-full">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    儲存備註
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/order-detail.js"></script>
+</body>
+</html>

@@ -1,0 +1,525 @@
+/* ==================== 訂單詳情專用樣式 ==================== */
+
+/* 詳情頁面標題 */
+.detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.detail-header-left {
+    flex: 1;
+}
+
+.detail-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+
+.detail-subtitle {
+    font-size: 0.95rem;
+    color: #6b7280;
+}
+
+.detail-subtitle span {
+    font-weight: 600;
+    color: #3b82f6;
+}
+
+.btn-back {
+    background: #6b7280;
+    color: white;
+}
+
+.btn-back:hover {
+    background: #4b5563;
+}
+
+/* 詳情網格佈局 */
+.detail-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+}
+
+.detail-left {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.detail-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* 詳情卡片 */
+.detail-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e5e7eb;
+    overflow: hidden;
+}
+
+.card-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+    background: #f9fafb;
+}
+
+.card-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* 資訊網格 */
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.info-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.section-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #6b7280;
+    margin-bottom: 1rem;
+}
+
+.info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.875rem;
+}
+
+.info-item dt {
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.info-item dd {
+    color: #111827;
+    font-weight: 600;
+    text-align: right;
+}
+
+.info-item.total {
+    padding-top: 0.75rem;
+    border-top: 1px solid #e5e7eb;
+    margin-top: 0.25rem;
+}
+
+.info-item.total dt,
+.info-item.total dd {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+/* 收件人資訊 */
+.recipient-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.recipient-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.recipient-item.full-width {
+    grid-column: 1 / -1;
+}
+
+.recipient-item dt {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #6b7280;
+}
+
+.recipient-item dd {
+    font-size: 0.9rem;
+    color: #111827;
+}
+
+/* 商品列表 */
+.products-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.product-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+.product-item:hover {
+    background: #f9fafb;
+    border-color: #d1d5db;
+}
+
+.product-item-image {
+    width: 64px;
+    height: 80px;
+    border-radius: 6px;
+    object-fit: cover;
+    background: #f3f4f6;
+    flex-shrink: 0;
+}
+
+.product-item-placeholder {
+    width: 64px;
+    height: 80px;
+    background: #f3f4f6;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.product-item-placeholder svg {
+    width: 32px;
+    height: 32px;
+    color: #9ca3af;
+}
+
+.product-item-info {
+    flex: 1;
+}
+
+.product-item-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+
+.product-item-meta {
+    font-size: 0.85rem;
+    color: #6b7280;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.product-item-pricing {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.product-item-pricing div {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.product-item-pricing .subtotal {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+/* 備註區域 */
+.notes-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.note-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.note-item h3 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #6b7280;
+}
+
+.note-item p {
+    font-size: 0.9rem;
+    color: #111827;
+    padding: 0.875rem;
+    border-radius: 6px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+}
+
+.note-item.admin-note p {
+    background: #dbeafe;
+    border-color: #bfdbfe;
+}
+
+/* 快速操作列表 */
+.quick-actions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.quick-action-btn {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: white;
+}
+
+.quick-action-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.quick-action-btn.confirm {
+    background: #3b82f6;
+}
+
+.quick-action-btn.confirm:hover {
+    background: #2563eb;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.quick-action-btn.ship {
+    background: #8b5cf6;
+}
+
+.quick-action-btn.ship:hover {
+    background: #7c3aed;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+}
+
+.quick-action-btn.finish {
+    background: #10b981;
+}
+
+.quick-action-btn.finish:hover {
+    background: #059669;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+.quick-action-btn.cancel {
+    background: #ef4444;
+}
+
+.quick-action-btn.cancel:hover {
+    background: #dc2626;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+}
+
+.no-actions {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: #9ca3af;
+    font-size: 0.9rem;
+}
+
+/* 狀態歷程 */
+.timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.timeline-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.timeline-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.timeline-icon svg {
+    width: 16px;
+    height: 16px;
+}
+
+.timeline-icon.created {
+    background: #d1fae5;
+}
+
+.timeline-icon.created svg {
+    color: #065f46;
+}
+
+.timeline-icon.confirmed {
+    background: #dbeafe;
+}
+
+.timeline-icon.confirmed svg {
+    color: #1e40af;
+}
+
+.timeline-icon.shipped {
+    background: #ede9fe;
+}
+
+.timeline-icon.shipped svg {
+    color: #6d28d9;
+}
+
+.timeline-icon.finished {
+    background: #d1fae5;
+}
+
+.timeline-icon.finished svg {
+    color: #065f46;
+}
+
+.timeline-icon.cancelled {
+    background: #fee2e2;
+}
+
+.timeline-icon.cancelled svg {
+    color: #991b1b;
+}
+
+.timeline-content {
+    flex: 1;
+}
+
+.timeline-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.25rem;
+}
+
+.timeline-time {
+    font-size: 0.8rem;
+    color: #6b7280;
+}
+
+/* 備註編輯表單 */
+.note-textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    resize: vertical;
+    transition: var(--transition);
+    margin-bottom: 1rem;
+}
+
+.note-textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.btn-full {
+    width: 100%;
+}
+
+/* 狀態標籤（複用 order-list 的樣式但稍作調整） */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* ==================== Responsive ==================== */
+@media (max-width: 1024px) {
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .detail-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+    
+    .btn-back {
+        width: 100%;
+    }
+    
+    .detail-title {
+        font-size: 1.5rem;
+    }
+    
+    .recipient-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .product-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .product-item-pricing {
+        width: 100%;
+        text-align: left;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .detail-title {
+        font-size: 1.25rem;
+    }
+}
