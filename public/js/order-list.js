@@ -98,7 +98,7 @@ function init() {
 
 /**
  * 渲染訂單列表
- */
+ 
 function renderOrders(filteredData = null) {
     const tableBody = document.getElementById('ordersTableBody');
     const emptyState = document.getElementById('emptyState');
@@ -182,7 +182,117 @@ function renderOrders(filteredData = null) {
     // 更新分頁導航
     updatePagination();
 }
-
+*/
+/**
+ * 渲染訂單列表（使用模板）
+ */
+function renderOrders(filteredData = null) {
+    const tableBody = document.getElementById('ordersTableBody');
+    const emptyState = document.getElementById('emptyState');
+    const template = document.getElementById('orderRowTemplate');
+    
+    if (!tableBody || !template) return;
+    
+    // 使用篩選後的數據或所有數據
+    const dataToRender = filteredData !== null ? filteredData : ordersData;
+    
+    // 更新當前篩選訂單列表
+    currentFilteredOrders = dataToRender;
+    
+    // 計算總頁數
+    totalPages = Math.ceil(dataToRender.length / itemsPerPage);
+    
+    // 確保當前頁碼在有效範圍內
+    if (currentPage > totalPages) {
+        currentPage = Math.max(1, totalPages);
+    }
+    
+    // 計算當前頁的資料範圍
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, dataToRender.length);
+    const currentPageData = dataToRender.slice(startIndex, endIndex);
+    
+    if (dataToRender.length === 0) {
+        tableBody.innerHTML = '';
+        emptyState.style.display = 'block';
+        updatePagination();
+        return;
+    }
+    
+    emptyState.style.display = 'none';
+    
+    // 清空表格內容
+    tableBody.innerHTML = '';
+    
+    // 使用模板渲染每一行
+    currentPageData.forEach(order => {
+        // 複製模板
+        const clone = template.content.cloneNode(true);
+        const row = clone.querySelector('tr');
+        
+        // 填充複選框
+        const checkbox = row.querySelector('.order-checkbox');
+        checkbox.value = order.id;
+        checkbox.setAttribute('data-order-id', order.id);
+        
+        // 填充訂單資訊
+        row.querySelector('.order-number').textContent = order.order_number;
+        row.querySelector('.order-date').textContent = order.order_date;
+        
+        // 填充收件人資訊
+        row.querySelector('.recipient-name').textContent = order.recipient_name;
+        row.querySelector('.recipient-phone').textContent = order.recipient_phone;
+        
+        // 填充商品資訊
+        const productImage = row.querySelector('.order-product-image');
+        productImage.src = order.product_image;
+        productImage.alt = order.product_title;
+        
+        row.querySelector('.order-product-title').textContent = order.product_title;
+        
+        const extraInfo = row.querySelector('.order-product-extra');
+        if (order.product_count > 1) {
+            extraInfo.textContent = `+${order.product_count - 1} 本其他書籍`;
+            extraInfo.style.display = 'block';
+        } else {
+            extraInfo.style.display = 'none';
+        }
+        
+        // 填充金額
+        row.querySelector('.order-amount').textContent = `NT$ ${order.final_price.toLocaleString()}`;
+        row.querySelector('.order-subtotal').textContent = `商品: NT$ ${order.total_price.toLocaleString()}`;
+        
+        // 填充狀態標籤
+        const orderStatusBadge = row.querySelector('.order-status-badge');
+        orderStatusBadge.textContent = statusLabels[order.status];
+        orderStatusBadge.className = `status-badge ${order.status}`;
+        
+        const paymentStatusBadge = row.querySelector('.payment-status-badge');
+        paymentStatusBadge.textContent = paymentLabels[order.payment_status];
+        paymentStatusBadge.className = `status-badge ${order.payment_status}`;
+        
+        // 填充操作連結
+        const viewLink = row.querySelector('.view-link');
+        viewLink.href = `order-detail.html?id=${order.id}`;
+        
+        const updateLink = row.querySelector('.update-link');
+        if (order.status !== 'finished' && order.status !== 'cancelled') {
+            updateLink.style.display = 'inline';
+            updateLink.onclick = () => showStatusModal(order.id, order.status);
+        } else {
+            updateLink.style.display = 'none';
+        }
+        
+        // 添加到表格
+        tableBody.appendChild(row);
+    });
+    
+    // 重新初始化選擇框事件
+    initCheckboxEvents();
+    
+    // 更新分頁導航
+    updatePagination();
+}
 /**
  * 初始化篩選
  */

@@ -293,6 +293,48 @@
                         </thead>
                         <tbody id="ordersTableBody">
                             <!-- 訂單列表將由 JavaScript 動態生成 -->
+                             <!-- 訂單行模板（隱藏） -->
+                            <!-- 訂單行模板（隱藏） -->
+                            <template id="orderRowTemplate">
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" class="order-checkbox table-checkbox" data-order-id="">
+                                    </td>
+                                    <td>
+                                        <div class="order-number"></div>
+                                        <div class="order-date"></div>
+                                    </td>
+                                    <td>
+                                        <div class="recipient-name"></div>
+                                        <div class="recipient-phone"></div>
+                                    </td>
+                                    <td>
+                                        <div class="order-product-info">
+                                            <img src="" alt="" class="order-product-image">
+                                            <div>
+                                                <div class="order-product-title"></div>
+                                                <div class="order-product-extra"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="order-amount"></div>
+                                        <div class="order-subtotal"></div>
+                                    </td>
+                                    <td>
+                                        <div class="status-badges">
+                                            <span class="status-badge order-status-badge"></span>
+                                            <span class="status-badge payment-status-badge"></span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="table-actions">
+                                            <a href="order-detail.html" class="action-link view-link">查看</a>
+                                            <a href="javascript:void(0)" class="action-link update-link">更新</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
                         </tbody>
                     </table>
                 </div>
