@@ -93,7 +93,7 @@
         <!-- 書籍列表 -->
         <h2 class="section-title" id="books">精選書籍</h2>
 
-        <!-- 搜尋框 -->
+        <!-- 搜尋框 
         <div class="search-container">
             <div class="search-box">
                 <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -113,6 +113,47 @@
             </div>
             <div id="searchResults" class="search-results"></div>
         </div>
+        -->
+        <div class="search-filter-container">
+            <!-- 搜尋框 -->
+            <div class="search-box-wrapper">
+                <div class="search-box">
+                    <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        class="search-input" 
+                        placeholder="搜尋書名、作者或出版社..."
+                    >
+                    <button id="clearSearch" class="clear-search-btn" style="display: none;">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div id="searchResults" class="search-results"></div>
+            </div>
+
+            <!-- 語系下拉選單 -->
+            <div class="language-filter-wrapper">
+                <label for="languageSelect" class="filter-label">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+                    </svg>
+                    語系
+                </label>
+                <select id="languageSelect" class="language-select">
+                    <option value="all">全部語系 (<span id="count-all-inline">0</span>)</option>
+                    <option value="zh-TW">繁體中文 (<span id="count-zh-TW-inline">0</span>)</option>
+                    <option value="zh-CN">簡體中文 (<span id="count-zh-CN-inline">0</span>)</option>
+                    <option value="en">English (<span id="count-en-inline">0</span>)</option>
+                    <option value="ja">日本語 (<span id="count-ja-inline">0</span>)</option>
+                </select>
+            </div>
+        </div>
+
 
         <div class="book-grid" id="bookGrid">
             <!-- 書籍卡片將由 JavaScript 動態生成 -->

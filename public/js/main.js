@@ -31,7 +31,7 @@ function init() {
 /**
  * 渲染書籍列表
  */
-function renderBooks() {
+function renderBooks(filteredData = null) {
     const bookGrid = document.getElementById('bookGrid');
     
     if (!bookGrid) return;
@@ -43,12 +43,24 @@ function renderBooks() {
         console.error('找不到書籍卡片模板');
         return;
     }
-
+    // 使用篩選後的數據或所有數據
+    const dataToRender = filteredData || booksData;
     // 清空容器但保留模板
     bookGrid.innerHTML = '';
+    // 如果沒有結果，顯示提示
+    if (dataToRender.length === 0) {
+        bookGrid.innerHTML = `
+            <div class="no-results">
+                <div class="no-results-icon">📚</div>
+                <h3>沒有找到符合條件的書籍</h3>
+                <p>請嘗試調整篩選條件</p>
+            </div>
+        `;
+        return;
+    }
 
     // 為每本書生成卡片
-    booksData.forEach((book, index) => {
+    dataToRender.forEach((book, index) => {
         // 克隆模板
         const card = template.cloneNode(true);
         
@@ -226,6 +238,7 @@ function initSearch() {
         searchResults.classList.remove('active');
         searchResults.innerHTML = '';
         searchInput.focus();
+        renderBooks();
     });
 
     // 點擊外部關閉搜尋結果
@@ -273,6 +286,7 @@ function performSearch(query) {
         `;
         searchResults.classList.add('active');
     }
+    renderBooks(results);
 }
 
 /**
