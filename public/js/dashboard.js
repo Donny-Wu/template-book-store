@@ -137,7 +137,7 @@ function renderDashboardBooks(filteredData = null) {
         viewLink.href = `book-detail.html?id=${book.id}`;
         
         const editBtn = card.querySelector('.book-edit-btn');
-        editBtn.onclick = () => editBook(book.id);
+        // editBtn.onclick = () => editBook(book.id);
         
         const deleteBtn = card.querySelector('.book-delete-btn');
         deleteBtn.onclick = () => deleteBook(book.id);

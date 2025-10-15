@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="BookHaven - 書籍編輯">
+    <title>書籍編輯 - BookHaven Dashboard</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/book-edit.css">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="dashboard-header">
+        <nav class="dashboard-nav">
+            <div class="nav-brand">
+                <a href="index.html" class="logo">BookHaven</a>
+                <span class="dashboard-label">管理後台</span>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="dashboard.html">儀表板</a></li>
+                <li><a href="dashboard.html#books" class="active">書籍管理</a></li>
+                <li><a href="order-list.html">訂單管理</a></li>
+                <li><a href="#users">用戶管理</a></li>
+                <li><a href="#settings">系統設定</a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <button class="notification-btn">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                    </svg>
+                    <span class="notification-badge">3</span>
+                </button>
+                
+                <div class="user-menu">
+                    <button class="user-btn" id="userMenuBtn">
+                        <div class="user-avatar">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                        </div>
+                        <span class="user-name">管理員</span>
+                        <svg class="dropdown-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="#profile">個人資料</a>
+                        <a href="#settings">帳號設定</a>
+                        <hr>
+                        <a href="index.html">返回前台</a>
+                        <a href="#logout" class="logout">登出</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="dashboard-container">
+        <div class="dashboard-content">
+            <div class="form-container">
+                <!-- 表單標題 -->
+                <div class="form-header">
+                    <h1 class="form-title">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                        </svg>
+                        <span id="formTitleText">編輯書籍</span>
+                    </h1>
+                    <p class="form-subtitle">
+                        填寫完整的書籍資訊，讓讀者更容易找到這本書
+                    </p>
+                </div>
+
+                <!-- 表單內容 -->
+                <form id="bookForm" enctype="multipart/form-data">
+                    <div class="form-body">
+                        <!-- 基本資訊區塊 -->
+                        <div class="form-section">
+                            <h2 class="section-title">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                基本資訊
+                            </h2>
+
+                            <div class="form-grid">
+                                <!-- 書名 -->
+                                <div class="form-group col-6">
+                                    <label for="title" class="form-label">
+                                        書名 <span class="required">*</span>
+                                    </label>
+                                    <input type="text"
+                                           name="title"
+                                           id="title"
+                                           class="form-input"
+                                           placeholder="請輸入書籍名稱"
+                                           required>
+                                    <div class="error-message" id="titleError" style="display: none;"></div>
+                                </div>
+
+                                <!-- 作者 -->
+                                <div class="form-group col-6">
+                                    <label for="authors" class="form-label">
+                                        作者 <span class="required">*</span>
+                                    </label>
+                                    <select name="authors[]" 
+                                            id="authors" 
+                                            class="form-select"
+                                            multiple
+                                            required>
+                                        <!-- 選項將由 JavaScript 動態生成 -->
+                                    </select>
+                                    <div class="form-hint">按住 Ctrl (Windows) 或 Cmd (Mac) 可多選</div>
+                                    <div class="error-message" id="authorsError" style="display: none;"></div>
+                                </div>
+
+                                <!-- ISBN -->
+                                <div class="form-group col-4">
+                                    <label for="isbn" class="form-label">ISBN (10碼)</label>
+                                    <input type="text"
+                                           name="isbn"
+                                           id="isbn"
+                                           class="form-input"
+                                           placeholder="請輸入 ISBN 10碼"
+                                           maxlength="10">
+                                    <div class="error-message" id="isbnError" style="display: none;"></div>
+                                </div>
+
+                                <!-- ISBN-13 -->
+                                <div class="form-group col-4">
+                                    <label for="isbn13" class="form-label">ISBN-13</label>
+                                    <input type="text"
+                                           name="isbn13"
+                                           id="isbn13"
+                                           class="form-input"
+                                           placeholder="請輸入 ISBN 13碼"
+                                           maxlength="13">
+                                    <div class="error-message" id="isbn13Error" style="display: none;"></div>
+                                </div>
+
+                                <!-- 定價 -->
+                                <div class="form-group col-4">
+                                    <label for="price" class="form-label">
+                                        定價 <span class="required">*</span>
+                                    </label>
+                                    <input type="number"
+                                           name="price"
+                                           id="price"
+                                           class="form-input"
+                                           step="0.01"
+                                           min="0"
+                                           placeholder="0.00"
+                                           required>
+                                    <div class="error-message" id="priceError" style="display: none;"></div>
+                                </div>
+
+                                <!-- 庫存 -->
+                                <div class="form-group col-3">
+                                    <label for="stock" class="form-label">
+                                        庫存 <span class="required">*</span>
+                                    </label>
+                                    <input type="number"
+                                           name="stock"
+                                           id="stock"
+                                           class="form-input"
+                                           step="1"
+                                           min="0"
+                                           placeholder="0"
+                                           required>
+                                    <div class="error-message" id="stockError" style="display: none;"></div>
+                                </div>
+
+                                <!-- 出版日期 -->
+                                <div class="form-group col-6">
+                                    <label for="publishDate" class="form-label">出版日期</label>
+                                    <input type="date"
+                                           name="publishDate"
+                                           id="publishDate"
+                                           class="form-input">
+                                    <div class="error-message" id="publishDateError" style="display: none;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 出版資訊區塊 -->
+                        <div class="form-section">
+                            <h2 class="section-title">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                                </svg>
+                                出版資訊
+                            </h2>
+
+                            <div class="form-grid">
+                                <!-- 出版商 -->
+                                <div class="form-group col-6">
+                                    <label for="publisher" class="form-label">出版商</label>
+                                    <select name="publisher" id="publisher" class="form-select">
+                                        <option value="">請選擇出版商</option>
+                                        <!-- 選項將由 JavaScript 動態生成 -->
+                                    </select>
+                                    <div class="error-message" id="publisherError" style="display: none;"></div>
+                                </div>
+
+                                <!-- 語言 -->
+                                <div class="form-group col-6">
+                                    <label for="language" class="form-label">語言</label>
+                                    <select name="language" id="language" class="form-select">
+                                        <option value="">請選擇語言</option>
+                                        <!-- 選項將由 JavaScript 動態生成 -->
+                                    </select>
+                                    <div class="error-message" id="languageError" style="display: none;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 圖片和描述區塊 -->
+                        <div class="form-section">
+                            <h2 class="section-title">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                圖片與描述
+                            </h2>
+
+                            <div class="form-grid">
+                                <!-- 圖片上傳 -->
+                                <div class="form-group full-width">
+                                    <label class="form-label">書籍封面</label>
+                                    
+                                    <!-- 現有圖片顯示 -->
+                                    <div id="existingImage" class="existing-image" style="display: none;">
+                                        <p class="existing-image-label">目前圖片：</p>
+                                        <img id="existingImagePreview" 
+                                             src="" 
+                                             alt="現有封面"
+                                             class="existing-image-preview">
+                                    </div>
+
+                                    <!-- 圖片預覽區域 -->
+                                    <div id="imagePreview" class="image-preview" style="display: none;">
+                                        <div class="preview-container">
+                                            <img id="previewImg" 
+                                                 src="" 
+                                                 alt="預覽圖片"
+                                                 class="preview-image">
+                                            <p id="fileName" class="preview-filename"></p>
+                                            <p id="fileSize" class="preview-filesize"></p>
+                                            <button type="button"
+                                                    id="removeImageBtn"
+                                                    class="remove-image-btn">
+                                                移除圖片
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- 上傳區域 -->
+                                    <div class="image-upload-area" id="uploadArea">
+                                        <div class="upload-icon">
+                                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                            </svg>
+                                        </div>
+                                        <h3 class="upload-title">上傳書籍封面</h3>
+                                        <p class="upload-hint">支援 PNG、JPG、GIF 格式，檔案大小不超過 10MB</p>
+                                        <div class="upload-action">
+                                            <label for="imageInput" class="upload-label">
+                                                點擊選擇檔案
+                                            </label>
+                                            或拖放檔案至此處
+                                        </div>
+                                    </div>
+
+                                    <input type="file"
+                                           name="image"
+                                           id="imageInput"
+                                           class="file-input"
+                                           accept="image/jpeg,image/png,image/jpg,image/gif">
+
+                                    <div class="error-message" id="imageError" style="display: none;"></div>
+                                </div>
+
+                                <!-- 內容描述 -->
+                                <div class="form-group full-width">
+                                    <label for="description" class="form-label">內容描述</label>
+                                    <textarea name="description"
+                                              id="description"
+                                              class="form-textarea"
+                                              placeholder="請輸入書籍內容描述、簡介或推薦理由..."></textarea>
+                                    <div class="error-message" id="descriptionError" style="display: none;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 表單操作按鈕 -->
+                    <div class="form-actions">
+                        <a href="dashboard.html" class="btn btn-secondary">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                            取消
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span id="submitBtnText">儲存書籍</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/book-edit.js"></script>
+</body>
+</html>
