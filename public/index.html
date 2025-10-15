@@ -227,6 +227,32 @@
             </div>
              
         </div>
+        <!-- 分頁導航 -->
+        <div class="pagination-container" id="paginationContainer">
+            <div class="pagination">
+                <button class="pagination-btn pagination-prev" id="prevPageBtn" disabled>
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                    上一頁
+                </button>
+                
+                <div class="pagination-numbers" id="paginationNumbers">
+                    <!-- 頁碼將由 JavaScript 動態生成 -->
+                </div>
+                
+                <button class="pagination-btn pagination-next" id="nextPageBtn">
+                    下一頁
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="pagination-info">
+                顯示第 <span id="currentStart">1</span> - <span id="currentEnd">12</span> 項，共 <span id="totalItems">0</span> 項
+            </div>
+        </div>
 
         <!-- Features Section -->
         <h2 class="section-title" id="features">為什麼選擇我們</h2>
