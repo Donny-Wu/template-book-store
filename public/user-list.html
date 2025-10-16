@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="BookHaven - 用戶管理">
+    <title>用戶管理 - BookHaven Dashboard</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/dashboard-common.css">
+    <link rel="stylesheet" href="css/user-list.css">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="dashboard-header">
+        <nav class="dashboard-nav">
+            <div class="nav-brand">
+                <a href="index.html" class="logo">BookHaven</a>
+                <span class="dashboard-label">管理後台</span>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="dashboard.html">儀表板</a></li>
+                <li><a href="dashboard.html#books">書籍管理</a></li>
+                <li><a href="order-list.html">訂單管理</a></li>
+                <li><a href="user-list.html" class="active">用戶管理</a></li>
+                <li><a href="#settings">系統設定</a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <button class="notification-btn">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                    </svg>
+                    <span class="notification-badge">3</span>
+                </button>
+                
+                <div class="user-menu">
+                    <button class="user-btn" id="userMenuBtn">
+                        <div class="user-avatar">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                        </div>
+                        <span class="user-name">管理員</span>
+                        <svg class="dropdown-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="admin-edit.html">個人資料</a>
+                        <a href="#settings">帳號設定</a>
+                        <hr>
+                        <a href="index.html">返回前台</a>
+                        <a href="#logout" class="logout">登出</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="dashboard-container">
+        <div class="dashboard-content">
+            <!-- Page Title -->
+            <div class="page-header">
+                <h1 class="page-title">用戶管理</h1>
+            </div>
+
+            <!-- Statistics Cards -->
+            <div class="user-stats">
+                <div class="user-stat-card total">
+                    <div class="stat-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="stat-label">總用戶數</div>
+                    <div class="stat-number" id="totalUsers">1,247</div>
+                </div>
+                
+                <div class="user-stat-card active">
+                    <div class="stat-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="stat-label">活躍用戶</div>
+                    <div class="stat-number" id="activeUsers">1,180</div>
+                </div>
+                
+                <div class="user-stat-card vip">
+                    <div class="stat-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                        </svg>
+                    </div>
+                    <div class="stat-label">VIP 會員</div>
+                    <div class="stat-number" id="vipUsers">89</div>
+                </div>
+                
+                <div class="user-stat-card blocked">
+                    <div class="stat-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
+                        </svg>
+                    </div>
+                    <div class="stat-label">已停用</div>
+                    <div class="stat-number" id="blockedUsers">67</div>
+                </div>
+                
+                <div class="user-stat-card new">
+                    <div class="stat-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                    </div>
+                    <div class="stat-label">本月新增</div>
+                    <div class="stat-number" id="newUsers">156</div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="filter-card">
+                <form id="userFilterForm" class="filter-form">
+                    <div class="filter-grid">
+                        <!-- 搜尋框 -->
+                        <div class="filter-item search-item">
+                            <label class="filter-label">搜尋用戶</label>
+                            <div class="search-input-wrapper">
+                                <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                                <input type="text" 
+                                    id="userSearchInput" 
+                                    class="filter-input with-icon" 
+                                    placeholder="姓名 / Email / 手機號碼">
+                            </div>
+                        </div>
+
+                        <!-- 用戶類型 -->
+                        <div class="filter-item">
+                            <label class="filter-label">用戶類型</label>
+                            <select id="userTypeFilter" class="filter-select">
+                                <option value="">全部類型</option>
+                                <option value="normal">一般會員</option>
+                                <option value="vip">VIP 會員</option>
+                                <option value="admin">管理員</option>
+                            </select>
+                        </div>
+
+                        <!-- 帳號狀態 -->
+                        <div class="filter-item">
+                            <label class="filter-label">帳號狀態</label>
+                            <select id="statusFilter" class="filter-select">
+                                <option value="">全部狀態</option>
+                                <option value="active">啟用中</option>
+                                <option value="inactive">未啟用</option>
+                                <option value="blocked">已停用</option>
+                            </select>
+                        </div>
+
+                        <!-- 註冊日期範圍 -->
+                        <div class="filter-item date-range-item">
+                            <label class="filter-label">註冊日期</label>
+                            <div class="date-range">
+                                <input type="date" id="dateFrom" class="filter-input date-input">
+                                <span class="date-separator">至</span>
+                                <input type="date" id="dateTo" class="filter-input date-input">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 操作按鈕區 -->
+                    <div class="actions-row">
+                        <div class="filter-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                                搜尋
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="resetUserFilters()">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                                </svg>
+                                重置
+                            </button>
+                        </div>
+
+                        <div class="batch-actions-divider"></div>
+
+                        <div class="batch-actions-group">
+                            <span class="batch-label">批量操作：</span>
+                            <button type="button" class="batch-btn activate" onclick="batchUserAction('activate')">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                啟用帳號
+                            </button>
+                            <button type="button" class="batch-btn block" onclick="batchUserAction('block')">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
+                                </svg>
+                                停用帳號
+                            </button>
+                            <button type="button" class="batch-btn export" onclick="exportUsers()">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                                </svg>
+                                匯出資料
+                            </button>
+                            <button type="button" class="batch-btn delete" onclick="batchUserAction('delete')">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                </svg>
+                                刪除用戶
+                            </button>
+                        </div>
+
+                        <span id="selectedCount" class="selected-count">已選擇 0 筆</span>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Users Table -->
+            <div class="users-table-card">
+                <div class="table-wrapper">
+                    <table class="users-table">
+                        <thead>
+                            <tr>
+                                <th class="th-checkbox">
+                                    <input type="checkbox" id="selectAllUsers" class="table-checkbox">
+                                </th>
+                                <th>用戶資訊</th>
+                                <th>聯絡方式</th>
+                                <th>會員類型</th>
+                                <th>註冊資訊</th>
+                                <th>消費統計</th>
+                                <th>狀態</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <!-- 示例用戶行 -->
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="user-checkbox table-checkbox" data-user-id="1">
+                                </td>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar-sm">
+                                            <img src="https://via.placeholder.com/40" alt="王小明">
+                                        </div>
+                                        <div>
+                                            <div class="user-name-text">王小明</div>
+                                            <div class="user-id-text">ID: U001247</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="contact-info">
+                                        <div class="email">xiaoming@example.com</div>
+                                        <div class="phone">0912-345-678</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="member-badge vip">VIP 會員</span>
+                                </td>
+                                <td>
+                                    <div class="register-info">
+                                        <div class="register-date">2025-01-15</div>
+                                        <div class="register-source">網站註冊</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="consume-info">
+                                        <div class="total-amount">NT$ 45,680</div>
+                                        <div class="order-count">訂單：28 筆</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="status-badge active">啟用中</span>
+                                </td>
+                                <td>
+                                    <div class="table-actions">
+                                        <a href="user-detail.html?id=1" class="action-link view-link">查看</a>
+                                        <a href="user-edit.html?id=1" class="action-link edit-link">編輯</a>
+                                        <a href="javascript:void(0)" class="action-link reset-link" onclick="resetPassword(1)">重設密碼</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="user-checkbox table-checkbox" data-user-id="2">
+                                </td>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar-sm default">
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <div class="user-name-text">李美華</div>
+                                            <div class="user-id-text">ID: U001246</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="contact-info">
+                                        <div class="email">meihua.li@gmail.com</div>
+                                        <div class="phone">0922-456-789</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="member-badge normal">一般會員</span>
+                                </td>
+                                <td>
+                                    <div class="register-info">
+                                        <div class="register-date">2025-01-10</div>
+                                        <div class="register-source">Facebook</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="consume-info">
+                                        <div class="total-amount">NT$ 8,290</div>
+                                        <div class="order-count">訂單：5 筆</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="status-badge active">啟用中</span>
+                                </td>
+                                <td>
+                                    <div class="table-actions">
+                                        <a href="user-detail.html?id=2" class="action-link view-link">查看</a>
+                                        <a href="user-edit.html?id=2" class="action-link edit-link">編輯</a>
+                                        <a href="javascript:void(0)" class="action-link reset-link" onclick="resetPassword(2)">重設密碼</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="user-checkbox table-checkbox" data-user-id="3">
+                                </td>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar-sm">
+                                            <img src="https://via.placeholder.com/40" alt="張大衛">
+                                        </div>
+                                        <div>
+                                            <div class="user-name-text">張大衛</div>
+                                            <div class="user-id-text">ID: U001245</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="contact-info">
+                                        <div class="email">david.chang@company.com</div>
+                                        <div class="phone">0933-567-890</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="member-badge admin">管理員</span>
+                                </td>
+                                <td>
+                                    <div class="register-info">
+                                        <div class="register-date">2024-06-01</div>
+                                        <div class="register-source">系統建立</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="consume-info">
+                                        <div class="total-amount">-</div>
+                                        <div class="order-count">-</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="status-badge active">啟用中</span>
+                                </td>
+                                <td>
+                                    <div class="table-actions">
+                                        <a href="user-detail.html?id=3" class="action-link view-link">查看</a>
+                                        <a href="user-edit.html?id=3" class="action-link edit-link">編輯</a>
+                                        <a href="javascript:void(0)" class="action-link reset-link" onclick="resetPassword(3)">重設密碼</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="user-checkbox table-checkbox" data-user-id="4">
+                                </td>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar-sm default">
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <div class="user-name-text">陳志明</div>
+                                            <div class="user-id-text">ID: U001244</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="contact-info">
+                                        <div class="email">zhiming.chen@outlook.com</div>
+                                        <div class="phone">0944-678-901</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="member-badge normal">一般會員</span>
+                                </td>
+                                <td>
+                                    <div class="register-info">
+                                        <div class="register-date">2024-12-20</div>
+                                        <div class="register-source">Google</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="consume-info">
+                                        <div class="total-amount">NT$ 3,450</div>
+                                        <div class="order-count">訂單：2 筆</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="status-badge blocked">已停用</span>
+                                </td>
+                                <td>
+                                    <div class="table-actions">
+                                        <a href="user-detail.html?id=4" class="action-link view-link">查看</a>
+                                        <a href="user-edit.html?id=4" class="action-link edit-link">編輯</a>
+                                        <a href="javascript:void(0)" class="action-link activate-link" onclick="activateUser(4)">啟用</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Empty State -->
+                <div class="empty-state" id="emptyState" style="display: none;">
+                    <div class="empty-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                    </div>
+                    <h3>尚無用戶資料</h3>
+                    <p>調整搜尋條件或等待用戶註冊</p>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-container" id="paginationContainer">
+                    <div class="pagination">
+                        <button class="pagination-btn pagination-prev" id="prevPageBtn" disabled>
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                            </svg>
+                            <span>上一頁</span>
+                        </button>
+                        
+                        <div class="pagination-numbers" id="paginationNumbers">
+                            <button class="pagination-number active">1</button>
+                            <button class="pagination-number">2</button>
+                            <button class="pagination-number">3</button>
+                            <span class="pagination-ellipsis">...</span>
+                            <button class="pagination-number">42</button>
+                        </div>
+                        
+                        <button class="pagination-btn pagination-next" id="nextPageBtn">
+                            <span>下一頁</span>
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="pagination-info">
+                        顯示第 <span id="currentStart">1</span> - <span id="currentEnd">10</span> 項，共 <span id="totalItems">1,247</span> 項
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Reset Modal -->
+    <div class="modal-overlay" id="passwordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">重設用戶密碼</h3>
+                <button class="modal-close" onclick="hidePasswordModal()">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <form id="passwordForm" class="modal-form">
+                <input type="hidden" id="userId">
+
+                <div class="form-group">
+                    <label class="form-label">新密碼</label>
+                    <input type="password" id="newPassword" class="form-input" placeholder="請輸入新密碼" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">確認密碼</label>
+                    <input type="password" id="confirmPassword" class="form-input" placeholder="請再次輸入密碼" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-checkbox-wrapper">
+                        <input type="checkbox" id="notifyUser">
+                        <span>發送密碼重設通知給用戶</span>
+                    </label>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="hidePasswordModal()">取消</button>
+                    <button type="submit" class="btn btn-primary">確認重設</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/user-list.js"></script>
+</body>
+</html>

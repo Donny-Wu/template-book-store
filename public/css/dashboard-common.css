@@ -33,7 +33,18 @@ body {
     flex-direction: column;
     gap: 2rem;
 }
+/* 頁面標題 */
+.page-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid #667eea;
+}
 
+.page-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1f2937;
+}
 /* ==================== Dashboard Header 導航欄 ==================== */
 .dashboard-header {
     background: rgba(255, 255, 255, 0.95);

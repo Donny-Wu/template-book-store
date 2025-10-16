@@ -1,0 +1,757 @@
+
+/* ==================== 用戶統計卡片 ==================== */
+.user-stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.user-stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e5e7eb;
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.user-stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+}
+
+.user-stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.user-stat-card.total::before {
+    background: linear-gradient(45deg, #6b7280, #4b5563);
+}
+
+.user-stat-card.active::before {
+    background: linear-gradient(45deg, #10b981, #059669);
+}
+
+.user-stat-card.vip::before {
+    background: linear-gradient(45deg, #f59e0b, #d97706);
+}
+
+.user-stat-card.blocked::before {
+    background: linear-gradient(45deg, #ef4444, #dc2626);
+}
+
+.user-stat-card.new::before {
+    background: linear-gradient(45deg, #3b82f6, #2563eb);
+}
+
+.user-stat-card .stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.user-stat-card .stat-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.user-stat-card.total .stat-icon {
+    background: linear-gradient(45deg, #6b7280, #4b5563);
+}
+
+.user-stat-card.active .stat-icon {
+    background: linear-gradient(45deg, #10b981, #059669);
+}
+
+.user-stat-card.vip .stat-icon {
+    background: linear-gradient(45deg, #f59e0b, #d97706);
+}
+
+.user-stat-card.blocked .stat-icon {
+    background: linear-gradient(45deg, #ef4444, #dc2626);
+}
+
+.user-stat-card.new .stat-icon {
+    background: linear-gradient(45deg, #3b82f6, #2563eb);
+}
+
+.user-stat-card .stat-label {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.user-stat-card .stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+/* ==================== 篩選卡片 ==================== */
+.filter-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.filter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.filter-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 2fr;
+    gap: 1rem;
+    align-items: end;
+}
+
+.filter-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-item.search-item {
+    grid-column: span 1;
+}
+
+.filter-item.date-range-item {
+    grid-column: span 1;
+}
+
+.filter-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #6b7280;
+    margin-bottom: 0.5rem;
+}
+
+.filter-input,
+.filter-select {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    transition: var(--transition);
+    background: white;
+    color: var(--text-color);
+    height: 38px;
+}
+
+.filter-input:focus,
+.filter-select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* 搜尋輸入框樣式 */
+.search-input-wrapper {
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    color: #9ca3af;
+}
+
+.filter-input.with-icon {
+    padding-left: 2.5rem;
+}
+
+.date-range {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.date-input {
+    flex: 1;
+}
+
+.date-separator {
+    color: var(--text-gray);
+    font-size: 0.875rem;
+}
+
+/* 操作按鈕區 */
+.actions-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #f3f4f6;
+    flex-wrap: wrap;
+}
+
+.filter-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.batch-actions-divider {
+    width: 1px;
+    height: 38px;
+    background: #e5e7eb;
+}
+
+.batch-actions-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+    flex-wrap: wrap;
+}
+
+.batch-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #6b7280;
+}
+
+.selected-count {
+    font-size: 0.875rem;
+    color: #6b7280;
+    font-weight: 500;
+    margin-left: auto;
+}
+
+/* 批量操作按鈕 */
+.batch-btn {
+    padding: 0.4rem 0.875rem;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    white-space: nowrap;
+}
+
+.batch-btn svg {
+    width: 14px;
+    height: 14px;
+}
+
+.batch-btn.activate {
+    background: #d1fae5;
+    color: #065f46;
+    border-color: #6ee7b7;
+}
+
+.batch-btn.activate:hover {
+    background: #a7f3d0;
+}
+
+.batch-btn.block {
+    background: #fee2e2;
+    color: #991b1b;
+    border-color: #fca5a5;
+}
+
+.batch-btn.block:hover {
+    background: #fecaca;
+}
+
+.batch-btn.export {
+    background: #dbeafe;
+    color: #1e40af;
+    border-color: #93c5fd;
+}
+
+.batch-btn.export:hover {
+    background: #bfdbfe;
+}
+
+.batch-btn.delete {
+    background: #fee2e2;
+    color: #991b1b;
+    border-color: #fca5a5;
+}
+
+.batch-btn.delete:hover {
+    background: #fecaca;
+}
+
+/* ==================== 用戶表格 ==================== */
+.users-table-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.users-table thead {
+    background: #f9fafb;
+}
+
+.users-table th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6b7280;
+    border-bottom: 1px solid #e5e7eb;
+    white-space: nowrap;
+}
+
+.th-checkbox {
+    width: 40px;
+    text-align: center;
+}
+
+.users-table tbody tr {
+    border-bottom: 1px solid #f3f4f6;
+    transition: background 0.2s ease;
+}
+
+.users-table tbody tr:hover {
+    background: #f9fafb;
+}
+
+.users-table td {
+    padding: 1rem;
+    font-size: 0.875rem;
+    vertical-align: middle;
+}
+
+.users-table td:first-child {
+    text-align: center;
+}
+
+.table-checkbox {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    border: 1.5px solid #d1d5db;
+    cursor: pointer;
+}
+
+.table-checkbox:checked {
+    background: #3b82f6;
+    border-color: #3b82f6;
+}
+
+/* 用戶資訊 */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.user-avatar-sm {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.user-avatar-sm img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-avatar-sm.default {
+    background: #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-avatar-sm.default svg {
+    width: 24px;
+    height: 24px;
+    color: #9ca3af;
+}
+
+.user-name-text {
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.25rem;
+}
+
+.user-id-text {
+    font-size: 0.75rem;
+    color: #9ca3af;
+}
+
+/* 聯絡資訊 */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.email {
+    color: #111827;
+    font-size: 0.875rem;
+}
+
+.phone {
+    color: #6b7280;
+    font-size: 0.8rem;
+}
+
+/* 會員類型標籤 */
+.member-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.625rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.member-badge.normal {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.member-badge.vip {
+    background: linear-gradient(45deg, #fef3c7, #fed7aa);
+    color: #92400e;
+    font-weight: 600;
+}
+
+.member-badge.admin {
+    background: linear-gradient(45deg, #ddd6fe, #c4b5fd);
+    color: #5b21b6;
+    font-weight: 600;
+}
+
+/* 註冊資訊 */
+.register-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.register-date {
+    color: #111827;
+    font-size: 0.875rem;
+}
+
+.register-source {
+    color: #6b7280;
+    font-size: 0.75rem;
+}
+
+/* 消費資訊 */
+.consume-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.total-amount {
+    color: #111827;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.order-count {
+    color: #6b7280;
+    font-size: 0.75rem;
+}
+
+/* 狀態標籤（使用共用樣式並擴展） */
+.status-badge.active {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.status-badge.inactive {
+    background: #fed7aa;
+    color: #92400e;
+}
+
+.status-badge.blocked {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* 表格操作 */
+.table-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.action-link {
+    color: #3b82f6;
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.2s ease;
+}
+
+.action-link:hover {
+    color: #2563eb;
+    text-decoration: underline;
+}
+
+.action-link.edit-link {
+    color: #10b981;
+}
+
+.action-link.edit-link:hover {
+    color: #059669;
+}
+
+.action-link.reset-link {
+    color: #f59e0b;
+}
+
+.action-link.reset-link:hover {
+    color: #d97706;
+}
+
+.action-link.activate-link {
+    color: #10b981;
+}
+
+.action-link.activate-link:hover {
+    color: #059669;
+}
+
+/* Empty State */
+.empty-state {
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+.empty-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1rem;
+    background: #f3f4f6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-icon svg {
+    width: 32px;
+    height: 32px;
+    color: #9ca3af;
+}
+
+.empty-state h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+/* ==================== Modal ==================== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1rem;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.modal-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+.modal-close {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    color: #6b7280;
+}
+
+.modal-close:hover {
+    background: #f3f4f6;
+    color: #111827;
+}
+
+.modal-close svg {
+    width: 20px;
+    height: 20px;
+}
+
+.modal-form {
+    padding: 1.5rem;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+/* Checkbox 樣式 */
+.form-checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: #374151;
+}
+
+.form-checkbox-wrapper input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+/* ==================== Responsive ==================== */
+@media (max-width: 1200px) {
+    .user-stats {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .filter-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .filter-item.search-item {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 768px) {
+    .user-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .filter-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .filter-item.search-item,
+    .filter-item.date-range-item {
+        grid-column: span 1;
+    }
+    
+    .batch-actions-group {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+    }
+    
+    .batch-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .table-wrapper {
+        overflow-x: scroll;
+    }
+    
+    .users-table {
+        min-width: 1000px;
+    }
+}
+
+@media (max-width: 480px) {
+    .user-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .page-title {
+        font-size: 1.5rem;
+    }
+    
+    .actions-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filter-actions {
+        width: 100%;
+    }
+    
+    .filter-actions .btn {
+        flex: 1;
+    }
+    
+    .batch-actions-divider {
+        width: 100%;
+        height: 1px;
+    }
+}
