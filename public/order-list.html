@@ -12,7 +12,7 @@
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/dashboard-common.css">
     <link rel="stylesheet" href="css/order-list.css">
 </head>
 <body>
@@ -54,7 +54,7 @@
                     </button>
                     
                     <div class="user-dropdown" id="userDropdown">
-                        <a href="#profile">個人資料</a>
+                        <a href="admin-edit.html">個人資料</a>
                         <a href="#settings">帳號設定</a>
                         <hr>
                         <a href="index.html">返回前台</a>
@@ -101,80 +101,6 @@
                     <div class="stat-number" id="cancelledOrders">0</div>
                 </div>
             </div>
-
-            <!-- Filters
-            <div class="filter-card">
-                <form id="filterForm" class="filter-form">
-                    <div class="filter-grid">
-
-                        <div class="filter-item">
-                            <label class="filter-label">搜尋</label>
-                            <input type="text" 
-                                   id="searchInput" 
-                                   class="filter-input" 
-                                   placeholder="訂單編號 / 收件人 / 電話">
-                        </div>
-
-                        <div class="filter-item">
-                            <label class="filter-label">訂單狀態</label>
-                            <select id="statusFilter" class="filter-select">
-                                <option value="">全部狀態</option>
-                                <option value="pending">待確認</option>
-                                <option value="confirmed">已確認</option>
-                                <option value="shipped">已出貨</option>
-                                <option value="finished">已完成</option>
-                                <option value="cancelled">已取消</option>
-                            </select>
-                        </div>
-                        <div class="filter-item">
-                            <label class="filter-label">付款狀態</label>
-                            <select id="paymentFilter" class="filter-select">
-                                <option value="">全部狀態</option>
-                                <option value="unpaid">未付款</option>
-                                <option value="paid">已付款</option>
-                                <option value="refunded">已退款</option>
-                            </select>
-                        </div>
-                        <div class="filter-item">
-                            <label class="filter-label">訂單日期</label>
-                            <div class="date-range">
-                                <input type="date" id="dateFrom" class="filter-input date-input">
-                                <span class="date-separator">至</span>
-                                <input type="date" id="dateTo" class="filter-input date-input">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="filter-actions">
-                        <button type="submit" class="btn btn-primary">搜尋</button>
-                        <button type="button" class="btn btn-secondary" onclick="resetFilters()">重置</button>
-                    </div>
-                </form>
-            </div>
-            -->
-
-            <!-- Batch Actions 
-            <div class="batch-actions-card">
-                <div class="batch-actions-content">
-                    <div class="batch-actions-left">
-                        <span class="batch-label">批量操作：</span>
-                        <button type="button" class="batch-btn confirm" onclick="batchAction('confirm')">
-                            確認訂單
-                        </button>
-                        <button type="button" class="batch-btn ship" onclick="batchAction('ship')">
-                            標記出貨
-                        </button>
-                        <button type="button" class="batch-btn finish" onclick="batchAction('finish')">
-                            完成訂單
-                        </button>
-                        <button type="button" class="batch-btn cancel" onclick="batchAction('cancel')">
-                            取消訂單
-                        </button>
-                    </div>
-                    <span id="selectedCount" class="selected-count">已選擇 0 筆</span>
-                </div>
-            </div>-->
-            
             <!-- Filters & Batch Actions -->
             <div class="filter-card">
                 <form id="filterForm" class="filter-form">

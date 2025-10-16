@@ -83,90 +83,8 @@
     height: 20px;
 }
 
-/* 表單網格 */
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 1.5rem;
-    align-items: start;
-}
-
-.form-group {
-    position: relative;
-    grid-column: span 12;
-}
-
-.form-group.col-6 {
-    grid-column: span 6;
-}
-
-.form-group.col-4 {
-    grid-column: span 4;
-}
-
-.form-group.col-3 {
-    grid-column: span 3;
-}
-
-.form-group.full-width {
-    grid-column: 1 / -1;
-}
-
-/* 表單標籤 */
-.form-label {
-    display: block;
-    font-weight: 600;
-    color: #374151;
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-}
-
-.required {
-    color: #ef4444;
-}
-
-/* 表單輸入框 */
-.form-input {
-    width: 100%;
-    padding: 0.875rem 1rem;
-    border: 2px solid #e5e7eb;
-    border-radius: 10px;
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
-    background: white;
-    color: #374151;
-}
-
-.form-input:focus {
-    outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-    transform: translateY(-1px);
-}
-
-.form-input:hover {
-    border-color: #a5b4fc;
-}
 
 /* 下拉選單 */
-.form-select {
-    width: 100%;
-    padding: 0.875rem 1rem;
-    border: 2px solid #e5e7eb;
-    border-radius: 10px;
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
-    background: white;
-    color: #374151;
-    cursor: pointer;
-}
-
-.form-select:focus {
-    outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-}
-
 .form-select[multiple] {
     min-height: 120px;
 }
@@ -175,43 +93,6 @@
     font-size: 0.8rem;
     color: #9ca3af;
     margin-top: 0.25rem;
-}
-
-/* 文本框 */
-.form-textarea {
-    width: 100%;
-    padding: 0.875rem 1rem;
-    border: 2px solid #e5e7eb;
-    border-radius: 10px;
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
-    background: white;
-    color: #374151;
-    resize: vertical;
-    min-height: 120px;
-    font-family: inherit;
-}
-
-.form-textarea:focus {
-    outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-}
-
-/* 錯誤訊息 */
-.error-message {
-    color: #ef4444;
-    font-size: 0.85rem;
-    margin-top: 0.5rem;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-}
-
-.error-message svg {
-    width: 16px;
-    height: 16px;
 }
 
 /* 圖片上傳區域 */
@@ -354,48 +235,6 @@
     display: flex;
     justify-content: flex-end;
     gap: 1rem;
-}
-
-.btn {
-    padding: 0.875rem 2rem;
-    border-radius: 10px;
-    font-weight: 600;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
-    font-size: 0.95rem;
-}
-
-.btn .icon {
-    width: 16px;
-    height: 16px;
-}
-
-.btn-primary {
-    background: linear-gradient(45deg, #667eea, #764ba2);
-    color: white;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-}
-
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-}
-
-.btn-secondary {
-    background: rgba(102, 126, 234, 0.1);
-    color: #667eea;
-    border: 2px solid rgba(102, 126, 234, 0.3);
-}
-
-.btn-secondary:hover {
-    background: rgba(102, 126, 234, 0.2);
-    color: #5a67d8;
-    transform: translateY(-1px);
 }
 
 /* ==================== 響應式 ==================== */
