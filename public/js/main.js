@@ -84,6 +84,19 @@ function renderBooks(filteredData = null) {
         } else {
             newBadge.style.display = 'none';
         }
+        // 🔥 設置分類相關屬性
+        if (book.categories && Array.isArray(book.categories)) {
+            card.setAttribute('data-categories', book.categories.join(','));
+        }
+        if (book.primary_category) {
+            card.setAttribute('data-primary-category', book.primary_category);
+        }
+        if (book.language) {
+            card.setAttribute('data-language', book.language);
+        }
+        if (book.format) {
+            card.setAttribute('data-format', book.format);
+        }
         
         // 更新書籍標題
         const title = card.querySelector('.book-title');
@@ -143,6 +156,33 @@ function renderBooks(filteredData = null) {
 
     // 綁定加入購物車按鈕
     bindAddToCartButtons();
+    // 🔥 渲染完成後，觸發分類標籤的渲染
+    renderCategoryTagsForAllBooks();
+}
+/**
+ * 🔥 為所有書籍卡片渲染分類標籤
+ */
+function renderCategoryTagsForAllBooks() {
+    // 檢查 categories.js 是否已載入
+    if (typeof window.renderCategoryTags === 'function') {
+        const bookCards = document.querySelectorAll('.book-card');
+        bookCards.forEach(card => {
+            window.renderCategoryTags(card);
+        });
+    } else if (typeof initAllBookCategoryTags === 'function') {
+        // 如果有全局的初始化函數
+        initAllBookCategoryTags();
+    } else {
+        // 延遲執行，等待 categories.js 載入
+        setTimeout(() => {
+            if (typeof window.renderCategoryTags === 'function') {
+                const bookCards = document.querySelectorAll('.book-card');
+                bookCards.forEach(card => {
+                    window.renderCategoryTags(card);
+                });
+            }
+        }, 100);
+    }
 }
 
 /**

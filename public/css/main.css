@@ -340,18 +340,20 @@ body {
 }
 /* ==================== 搜尋和篩選區域 ==================== */
 .search-filter-container {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto 3rem;
     display: flex;
     gap: 1rem;
     align-items: flex-start;
+    justify-content: flex-start; /* 向左對齊 */
 }
 
 /* 搜尋框容器 */
 .search-box-wrapper {
     flex: 1;
+    max-width: 700px; /* 限制最大寬度 */
+    min-width: 250px; /* 最小寬度 */
     position: relative;
-    min-width: 0;
 }
 
 .search-box {
@@ -514,11 +516,12 @@ body {
     gap: 1rem;
     flex-shrink: 0;
     flex-wrap: wrap;
+    align-items: center;
 }
 
 /* 語系篩選容器 */
-.language-filter-wrapper ,
-.format-filter-wrapper{
+.language-filter-wrapper,
+.format-filter-wrapper {
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -541,7 +544,7 @@ body {
     color: var(--primary-color);
 }
 
-.language-select ,
+.language-select,
 .format-select {
     padding: 0.65rem 2.5rem 0.65rem 1.2rem;
     border: 2px solid #e5e7eb;
@@ -561,8 +564,8 @@ body {
     min-width: 180px;
 }
 
-.language-select:hover ,
-.format-select:hover{
+.language-select:hover,
+.format-select:hover {
     border-color: var(--primary-color);
     background-color: rgba(102, 126, 234, 0.02);
 }
@@ -596,6 +599,80 @@ body {
 .no-results p {
     color: var(--text-gray);
     font-size: 1rem;
+}
+
+/* ==================== 響應式調整 ==================== */
+
+@media (max-width: 768px) {
+    .search-filter-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .search-box-wrapper {
+        max-width: 100%;
+        min-width: 0;
+        width: 100%;
+    }
+
+    .filters-group {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .language-filter-wrapper,
+    .format-filter-wrapper {
+        width: 100%;
+    }
+
+    .language-select,
+    .format-select {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .search-box {
+        padding: 0.4rem 1rem;
+    }
+
+    .search-input {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-box-wrapper {
+        min-width: 0;
+    }
+
+    .search-box {
+        padding: 0.3rem 0.8rem;
+    }
+
+    .search-input {
+        font-size: 0.85rem;
+    }
+
+    .search-input::placeholder {
+        font-size: 0.85rem;
+    }
+
+    .search-result-item {
+        padding: 0.75rem 1rem;
+    }
+
+    .search-result-image {
+        width: 40px;
+        height: 56px;
+    }
+
+    .search-result-title {
+        font-size: 0.9rem;
+    }
+
+    .search-result-meta {
+        font-size: 0.8rem;
+    }
 }
 /* ==================== 分頁導航 ==================== */
 .pagination-container {

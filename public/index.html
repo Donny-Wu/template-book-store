@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="BookHaven - 您的閱讀天堂，提供豐富的書籍選擇">
     <title>BookHaven - 您的閱讀天堂</title>
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet">
-    
+
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/main.css">
@@ -17,7 +18,10 @@
     <link rel="stylesheet" href="css/cart.css">
     <link rel="stylesheet" href="css/features.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <!-- 📌 加入分類功能 CSS -->
+    <link rel="stylesheet" href="css/category.css">
 </head>
+
 <body>
     <!-- Header -->
     <header class="header">
@@ -36,7 +40,8 @@
             <div class="header-actions">
                 <a href="member-center.html" class="member-link">
                     <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                     </svg>
                     <span>會員中心</span>
                 </a>
@@ -49,7 +54,7 @@
 
     <!-- 購物車覆蓋層 -->
     <div class="cart-overlay" id="cartOverlay"></div>
-    
+
     <!-- 購物車側邊欄 -->
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
@@ -92,44 +97,19 @@
     <div class="main-content">
         <!-- 書籍列表 -->
         <h2 class="section-title" id="books">精選書籍</h2>
-
-        <!-- 搜尋框 
-        <div class="search-container">
-            <div class="search-box">
-                <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                </svg>
-                <input 
-                    type="text" 
-                    id="searchInput" 
-                    class="search-input" 
-                    placeholder="搜尋書名、作者或出版社..."
-                >
-                <button id="clearSearch" class="clear-search-btn" style="display: none;">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
-            </div>
-            <div id="searchResults" class="search-results"></div>
-        </div>
-        -->
         <div class="search-filter-container">
             <!-- 搜尋框 -->
             <div class="search-box-wrapper">
                 <div class="search-box">
                     <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
-                    <input 
-                        type="text" 
-                        id="searchInput" 
-                        class="search-input" 
-                        placeholder="搜尋書名、作者或出版社..."
-                    >
+                    <input type="text" id="searchInput" class="search-input" placeholder="搜尋書名、作者或出版社...">
                     <button id="clearSearch" class="clear-search-btn" style="display: none;">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
                     </button>
                 </div>
@@ -137,11 +117,59 @@
             </div>
             <!-- 篩選器組 -->
             <div class="filters-group">
+                <!-- 書籍分類篩選器 -->
+                <div class="category-filter-wrapper">
+                    <label for="categorySelect" class="filter-label">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z">
+                            </path>
+                        </svg>
+                        書籍分類
+                    </label>
+                    <select id="categorySelect" class="category-select">
+                        <option value="all">全部分類 (<span class="count">0</span>)</option>
+                        <optgroup label="文學類">
+                            <option value="1" data-level="0">📚 文學 (<span class="count">0</span>)</option>
+                            <option value="2" data-level="1">&nbsp;&nbsp;├─ 📖 小說 (<span class="count">0</span>)
+                            </option>
+                            <option value="4" data-level="2">&nbsp;&nbsp;│&nbsp;&nbsp;├─ 🚀 科幻小說 (<span
+                                    class="count">0</span>)</option>
+                            <option value="5" data-level="2">&nbsp;&nbsp;│&nbsp;&nbsp;└─ 🔍 推理小說 (<span
+                                    class="count">0</span>)</option>
+                            <option value="3" data-level="1">&nbsp;&nbsp;└─ ✍️ 詩歌 (<span class="count">0</span>)
+                            </option>
+                        </optgroup>
+                        <optgroup label="科學類">
+                            <option value="6" data-level="0">🔬 科學 (<span class="count">0</span>)</option>
+                            <option value="7" data-level="1">&nbsp;&nbsp;├─ ⚛️ 物理學 (<span class="count">0</span>)
+                            </option>
+                            <option value="8" data-level="1">&nbsp;&nbsp;└─ 🧪 化學 (<span class="count">0</span>)
+                            </option>
+                        </optgroup>
+                        <optgroup label="商業類">
+                            <option value="9" data-level="0">💼 商業 (<span class="count">0</span>)</option>
+                            <option value="10" data-level="1">&nbsp;&nbsp;├─ 📊 管理 (<span class="count">0</span>)
+                            </option>
+                            <option value="11" data-level="1">&nbsp;&nbsp;└─ 📈 行銷 (<span class="count">0</span>)
+                            </option>
+                        </optgroup>
+                        <optgroup label="藝術類">
+                            <option value="12" data-level="0">🎨 藝術 (<span class="count">0</span>)</option>
+                            <option value="13" data-level="1">&nbsp;&nbsp;├─ 🖼️ 繪畫 (<span class="count">0</span>)
+                            </option>
+                            <option value="14" data-level="1">&nbsp;&nbsp;└─ 🎵 音樂 (<span class="count">0</span>)
+                            </option>
+                        </optgroup>
+                    </select>
+                </div>
                 <!-- 語系下拉選單 -->
                 <div class="language-filter-wrapper">
                     <label for="languageSelect" class="filter-label">
                         <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129">
+                            </path>
                         </svg>
                         語系
                     </label>
@@ -157,7 +185,9 @@
                 <div class="format-filter-wrapper">
                     <label for="formatSelect" class="filter-label">
                         <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                            </path>
                         </svg>
                         <span class="filter-label-text">出版形式</span>
                     </label>
@@ -174,12 +204,14 @@
 
         <div class="book-grid" id="bookGrid">
             <!-- 書籍卡片將由 JavaScript 動態生成 -->
-             <div class="book-card animate-on-scroll visible" style="animation-delay: 0s;" data-book-id="1" onclick="window.location.href ='/book-info.html'">
+            <div class="book-card animate-on-scroll visible" style="animation-delay: 0s;" data-book-id="1"
+                onclick="window.location.href ='/book-info.html'">
                 <div class="book-cover">
-                    <img src="https://images.unsplash.com/photo-1589998059171-988d887df646?w=400&amp;h=600&amp;fit=crop" alt="深度學習入門" loading="lazy" onerror="this.src='images/placeholder-book.png'">
-                    
+                    <img src="https://images.unsplash.com/photo-1589998059171-988d887df646?w=400&amp;h=600&amp;fit=crop"
+                        alt="深度學習入門" loading="lazy" onerror="this.src='images/placeholder-book.png'">
+
                     <div class="book-badge">#001</div>
-                    
+
                     <div class="new-badge">NEW</div>
                 </div>
 
@@ -187,18 +219,31 @@
                     <div class="book-details">
                         <h3 class="book-title">深度學習入門</h3>
                         <p class="book-author">安德魯·特拉斯克</p>
+                        <!-- 📌 分類標籤容器 -->
+                        <div class="book-categories">
+                            <template class="category-tag-template">
+                                <span class="category-tag" data-category-id="">
+                                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                                    </svg>
+                                    <span class="category-name"></span>
+                                </span>
+                            </template>
+                        </div>
 
                         <div class="book-meta">
                             <span title="出版社">
                                 <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
                                     </path>
                                 </svg>
                                 歐萊禮出版社
                             </span>
                             <span title="庫存">
                                 <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4">
                                     </path>
                                 </svg>
                                 庫存: 15
@@ -206,41 +251,43 @@
                         </div>
 
                         <div class="book-price">
-                            
-                                <span class="original-price">$680.00</span>
-                            
+
+                            <span class="original-price">$680.00</span>
+
                             <span class="current-price">$580.00</span>
-                            
-                                <span class="discount-badge">-15%</span>
-                            
+
+                            <span class="discount-badge">-15%</span>
+
                         </div>
                     </div>
 
                     <button class="buy-button" data-book-id="1">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
                             </path>
                         </svg>
                         加入購物車
                     </button>
                 </div>
             </div>
-             
+
         </div>
         <!-- 分頁導航 -->
         <div class="pagination-container" id="paginationContainer">
             <div class="pagination">
                 <button class="pagination-btn pagination-prev" id="prevPageBtn" disabled>
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7">
+                        </path>
                     </svg>
                     上一頁
                 </button>
-                
+
                 <div class="pagination-numbers" id="paginationNumbers">
                     <!-- 頁碼將由 JavaScript 動態生成 -->
                 </div>
-                
+
                 <button class="pagination-btn pagination-next" id="nextPageBtn">
                     下一頁
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -248,9 +295,10 @@
                     </svg>
                 </button>
             </div>
-            
+
             <div class="pagination-info">
-                顯示第 <span id="currentStart">1</span> - <span id="currentEnd">12</span> 項，共 <span id="totalItems">0</span> 項
+                顯示第 <span id="currentStart">1</span> - <span id="currentEnd">12</span> 項，共 <span
+                    id="totalItems">0</span> 項
             </div>
         </div>
 
@@ -292,5 +340,8 @@
 
     <!-- Scripts -->
     <script type="module" src="js/main.js"></script>
+    <!-- 📌 加入分類功能 JavaScript -->
+    <script src="js/category.js"></script>
 </body>
+
 </html>
